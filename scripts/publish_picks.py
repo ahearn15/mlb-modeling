@@ -57,9 +57,12 @@ class PublishPicks:
         today_tidy = pd.concat([today_tidy, blank_df])
         gc = gspread.service_account(filename='misc/mlb-modeling-a9139a680fef.json')
         gc = gc.open('MLB Model Picks')
-        sh = gc.worksheet('Games')
+        sh = gc.worksheet("Today's Picks")
         sh.update([today_tidy.columns.values.tolist()] + today_tidy.values.tolist())
 
+
+    def publish_results_gsheets(self):
+        results = pd.read_csv('data/picks_results.csv')
 
 if __name__ == '__main__':
     publisher = PublishPicks()
