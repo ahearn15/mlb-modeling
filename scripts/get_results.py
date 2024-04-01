@@ -2,7 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
-
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+import os
+import re
+import requests
+from scipy import stats
 
 class RetrieveResults:
     def __init__(self):
@@ -62,8 +68,8 @@ class RetrieveResults:
             if extracted_numbers == []:
                 continue
             else:
-                home_runs = extracted_numbers[0]
-                away_runs = extracted_numbers[1]
+                away_runs = extracted_numbers[0]
+                home_runs = extracted_numbers[1]
 
                 # put in dataframe
                 game = pd.DataFrame({
@@ -88,10 +94,75 @@ class RetrieveResults:
         mast_games_df['Date'] = pd.to_datetime(mast_games_df['Date'])
         mast_games_df['Date'] = mast_games_df['Date'].dt.strftime('%Y-%m-%d')
 
-        mast_games_df['Game_ID'] = mast_games_df['Away'] + '-' + mast_games_df['Home'] + '-' + mast_games_df['Date'].astype(str).replace('-', '', regex = True) + '-' + mast_games_df['Game_Number'].astype(str)
+        mast_games_df['Game_ID'] = mast_games_df['Home'] + '-' + mast_games_df['Away'] + '-' + mast_games_df['Date'].astype(str).replace('-', '', regex = True) + '-' + mast_games_df['Game_Number'].astype(str)
         mast_games_df = mast_games_df.set_index('Game_ID')
         mast_games_df.to_csv('data/game_results.csv')
+
+
+    def merge_game_results(self):
+        # get subdirectories
+        subdirs = [x[0] for x in os.walk('data/')][3:]
+        mast_picks = pd.DataFrame()
+        for dir in subdirs:
+            # check if file with '_r.csv' exists
+            if not os.path.exists(dir + '/_r.csv'):
+                # get all files in directory
+                files = os.listdir(dir)
+                # get all files that end with '_picks.csv'
+                for file in files:
+                    if '_picks.csv' in file:
+                        daily_picks = pd.read_csv(dir + '/' + file)
+                        mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
+
+        # only get games that were bet on
+        mast_picks['Bet'] = mast_picks['Bet_Home'] + mast_picks['Bet_Away']
+        mast_picks = mast_picks[mast_picks['Bet'] == 1]
+        mast_picks = mast_picks.drop(columns = ['As Of', 'Confirmed'])
+
+        results = pd.read_csv('data/game_results.csv')
+        mast_picks = mast_picks.merge(results[['Game_ID', 'Home_Runs', 'Away_Runs']], on = ['Game_ID'], how = 'inner')
+        mast_picks['Win_Bet'] = np.where(
+            ((mast_picks['Bet_Home'] == 1) & (mast_picks['Home_Runs'] > mast_picks['Away_Runs'])) |
+            ((mast_picks['Bet_Away'] == 1) & (mast_picks['Home_Runs'] < mast_picks['Away_Runs'])), 1, 0)
+
+        # convert ml to decimal
+        mast_picks['Home_ML'] = np.where(mast_picks['Home_ML'] > 0, (mast_picks['Home_ML'] / 100) + 1, (100 / abs(mast_picks['Home_ML'])) + 1)
+        mast_picks['Away_ML'] = np.where(mast_picks['Away_ML'] > 0, (mast_picks['Away_ML'] / 100) + 1, (100 / abs(mast_picks['Away_ML'])) + 1)
+
+        mast_picks['Return'] = np.where((mast_picks['Bet_Home'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Home_ML'], 0)
+        mast_picks['Return'] = np.where((mast_picks['Bet_Away'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Away_ML'], mast_picks['Return'])
+
+        mast_picks = mast_picks[['Game_ID', 'Home', 'Away', 'Game_Number', 'Home_ML', 'Away_ML', 'Home_Win_Prob', 'Away_Win_Prob', 'Home_EV', 'Away_EV', 'Home_Runs', 'Away_Runs', 'Bet_Home', 'Bet_Away', 'Win_Bet', 'Return']]
+
+        roi = mast_picks['Return'].sum() / mast_picks['Return'].count()
+        units = mast_picks['Return'].sum() - mast_picks['Return'].count()
+
+        current_record = str(mast_picks['Win_Bet'].sum()) + '-' + str(mast_picks['Win_Bet'].count() - mast_picks['Win_Bet'].sum())
+        # format roi as %
+
+        n_bets = mast_picks['Win_Bet'].count()
+        se = np.sqrt((1 - roi) ** 2 / n_bets)
+        tstat = roi / se
+        pval = 1 - stats.t.cdf(tstat, n_bets - 1)
+
+        roi = "{:.2%}".format(roi)
+        tstat = "{:.2f}".format(tstat)
+        pval = "{:.4f}".format(pval)
+        # format units as 2 decimal places with +/- sign
+        if units > 0:
+            units = "+" + "{:.2f}".format(units)
+        else:
+            units = "{:.2f}".format(units)
+
+        print('Current record: ' + current_record)
+        print(f'ROI: {roi}')
+        print(f'Units: {units}u')
+        print(f'T-stat: {tstat} (p={pval})')
+        mast_picks.to_csv('data/picks_results.csv')
 
 if __name__ == '__main__':
     results = RetrieveResults()
     results.get_results()
+    results.merge_game_results()
+
+#%%
