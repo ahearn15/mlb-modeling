@@ -19,7 +19,15 @@ class BaseballMonsterScraper:
         if not os.path.exists(download_path):
             os.makedirs(download_path)
         self.orig_wd = os.getcwd()
+        cookie_file = 'misc/cookies.txt'
+        with open(cookie_file, 'r') as f:
+            cookies_ = f.read()
+        self.cookies_ = json.loads(cookies_)
         os.chdir(download_path)
+        # recursively delete all files in the directory
+        for root, dirs, files in os.walk(download_path):
+            for file in files:
+                os.remove(os.path.join(root, file))
         self.download_path = os.getcwd()
         self.driver = self.create_driver()
 
@@ -34,11 +42,7 @@ class BaseballMonsterScraper:
         url = "https://baseballmonster.com/lineups.aspx"
         driver_.get(url)
         driver_.delete_all_cookies()
-        cookie_file = '/home/ahearn15/misc/cookies.txt'
-        with open(cookie_file, 'r') as f:
-            cookies_ = f.read()
-        cookies_ = json.loads(cookies_)
-        for cookie in cookies_:
+        for cookie in self.cookies_:
             if 'sameSite' in cookie:
                 if cookie['sameSite'] == None:
                     cookie['sameSite'] = 'None'
@@ -161,3 +165,5 @@ if __name__ == '__main__':
    scraper = BaseballMonsterScraper()
    scraper.scrape_data()
 
+
+#%%
