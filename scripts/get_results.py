@@ -131,8 +131,8 @@ class RetrieveResults:
 
         mast_picks['Return'] = np.where((mast_picks['Bet_Home'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Home_ML'], 0)
         mast_picks['Return'] = np.where((mast_picks['Bet_Away'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Away_ML'], mast_picks['Return'])
-
-        mast_picks = mast_picks[['Game_ID', 'Home', 'Away', 'Game_Number', 'Home_ML', 'Away_ML', 'Home_Win_Prob', 'Away_Win_Prob', 'Home_EV', 'Away_EV', 'Home_Runs', 'Away_Runs', 'Bet_Home', 'Bet_Away', 'Win_Bet', 'Return']]
+        mast_picks['Result'] = mast_picks['Return'] - 1
+        mast_picks = mast_picks[['Game_ID', 'Home', 'Away', 'Game_Number', 'Home_ML', 'Away_ML', 'Home_Win_Prob', 'Away_Win_Prob', 'Home_EV', 'Away_EV', 'Home_Runs', 'Away_Runs', 'Bet_Home', 'Bet_Away', 'Win_Bet', 'Return', "Result"]]
 
         roi = mast_picks['Return'].sum() / mast_picks['Return'].count()
         units = mast_picks['Return'].sum() - mast_picks['Return'].count()

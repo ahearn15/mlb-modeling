@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import gspread
 from datetime import datetime
+from scipy import stats
 import os
 
 class PublishPicks:
@@ -63,10 +64,53 @@ class PublishPicks:
 
     def publish_results_gsheets(self):
         results = pd.read_csv('data/picks_results.csv')
+        results = results.drop(columns = ['Unnamed: 0'])
+        results['Date'] = results['Game_ID'].str.split('-').str[2]
+        results['Date'] = results['Date'].str[:4] + '-' + results['Date'].str[4:6] + '-' + results['Date'].str[6:]
+        results['Game_ID'] = results['Date']
+        results = results.drop(columns = ['Date']).rename(columns = {'Game_ID' : 'Date'})
+        roi = results['Return'].sum() / results['Return'].count()
+        units = results['Return'].sum() - results['Return'].count()
+        current_record = str(results['Win_Bet'].sum()) + '-' + str(results['Win_Bet'].count() - results['Win_Bet'].sum())
+        n_bets = results['Win_Bet'].count()
+        se = np.sqrt((1 - roi) ** 2 / n_bets)
+        tstat = roi / se
+        pval = 1 - stats.t.cdf(tstat, n_bets - 1)
+
+        roi = "{:.2%}".format(roi)
+        tstat = "{:.4f}".format(tstat)
+        pval = "{:.4f}".format(pval)
+        if units > 0:
+            units = "+" + "{:.2f}".format(units)
+        else:
+            units = "{:.2f}".format(units)
+
+        cols = ['Season results'] + ([''] * 16)
+
+        second_row = pd.DataFrame([f'Record: {current_record}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
+        third_row = pd.DataFrame([f'ROI: {roi}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
+        fourth_row = pd.DataFrame([f'{units}u', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
+        fifth_row = pd.DataFrame([f'T-stat: {tstat} (p = {pval})', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
+        second_row.columns = cols
+        third_row.columns = cols
+        fourth_row.columns = cols
+        fifth_row.columns = cols
+        header = pd.concat([second_row, third_row, fourth_row, fifth_row])
+        blank_row = pd.DataFrame({col: np.nan for col in results.columns}, index=[0])
+        results = pd.concat([blank_row, results], axis = 0)
+        results.iloc[0] = results.columns
+        results.columns = cols
+        results = pd.concat([header, results], axis = 0)
+
+        gc = gspread.service_account(filename='misc/mlb-modeling-a9139a680fef.json')
+        gc = gc.open('MLB Model Picks')
+        sh = gc.worksheet("Results")
+        sh.update([results.columns.values.tolist()] + results.values.tolist())
 
 if __name__ == '__main__':
     publisher = PublishPicks()
     publisher.publish_picks_gsheets()
+    publisher.publish_results_gsheets()
 #%%
 
 #%%
