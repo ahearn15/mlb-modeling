@@ -39,8 +39,8 @@ class PublishPicks:
 
     def publish_picks_gsheets(self):
         today_tidy = self.tidy_predictions()
-        print("Today's picks:")
-        print(today_tidy[today_tidy['Official Pick'] != 'No bet'].drop(columns = ['As Of']))
+        #print("Today's picks:")
+        #print(today_tidy[today_tidy['Official Pick'] != 'No bet'].drop(columns = ['As Of']))
         as_of = today_tidy['As Of'][0]
         today_tidy = today_tidy.drop(columns = 'As Of')
         cols = ['MLB Picks', '', '', '', '', '']

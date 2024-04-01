@@ -29,7 +29,7 @@ def main():
     #print('Picks published successfully')
 
     #print('Getting results')
-    results = GetResults()
+    results = RetrieveResults()
     results.eval_results()
 
 if __name__ == '__main__':
