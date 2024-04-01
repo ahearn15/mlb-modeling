@@ -25,11 +25,11 @@ class BaseballMonsterScraper:
         self.cookies_ = json.loads(cookies_)
         os.chdir(download_path)
         # remove all files in download path that don't begin with today's date
-        today_date_no_zero = datetime.now().strftime("%-m-%-d-%Y")
-        files = os.listdir()
-        for file in files:
-            if not file.startswith(today_date_no_zero):
-                os.remove(file)
+        # today_date_no_zero = datetime.now().strftime("%-m-%-d-%Y")
+        # files = os.listdir()
+        # for file in files:
+        #     if not file.startswith(today_date_no_zero):
+        #         os.remove(file)
         self.download_path = os.getcwd()
         self.driver = self.create_driver()
 
