@@ -24,10 +24,6 @@ class BaseballMonsterScraper:
             cookies_ = f.read()
         self.cookies_ = json.loads(cookies_)
         os.chdir(download_path)
-        # recursively delete all files in the directory
-        for root, dirs, files in os.walk(download_path):
-            for file in files:
-                os.remove(os.path.join(root, file))
         self.download_path = os.getcwd()
         self.driver = self.create_driver()
 

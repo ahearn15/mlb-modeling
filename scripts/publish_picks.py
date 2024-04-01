@@ -14,8 +14,10 @@ class PublishPicks:
         self.fp = f'data/monster_data/{year}/{self.fp}/'
         self.today_picks = pd.read_csv(self.fp + f'{self.today_date}_picks.csv', dtype = {'Home_ML' : str, 'Away_ML':str})
 
+
     def tidy_predictions(self):
         today = self.today_picks.copy()
+        # sort by time
         today['Home_ML'] = today['Home_ML'].astype(str)
         today['Away_ML'] = today['Away_ML'].astype(str)
 
