@@ -26,10 +26,10 @@ class PublishPicks:
         today['Time'] = 'Game ' + today['Game_Number'].astype(str) + ' - ' + today['Time_EST']
         today['Official Pick'] = np.where(today['Bet_Home'] == 1, today['Home'] + ' ' + today['Home_ML'],
                                           np.where(today['Bet_Away'] == 1, today['Away'] + ' ' + today['Away_ML'], 'No bet'))
-        #today['Pr(Win)'] = np.where(today['Bet_Home'] == 1, today['Home_Win_Prob'], np.where(today['Bet_Away'] == 1, today['Away_Win_Prob'], np.nan))
-        #today['EV'] = np.where(today['Bet_Home'] == 1, today['Home_EV'],
-        #                      np.where(today['Bet_Away'] == 1, today['Away_EV'], np.nan))
-        today_tidy = today.reset_index()[['Game', 'Time', 'Confirmed', 'Official Pick', 'Pr(Win)', 'EV', 'As Of']]
+        today['Pr(Win)'] = np.where(today['Bet_Home'] == 1, today['Home_Win_Prob'], np.where(today['Bet_Away'] == 1, today['Away_Win_Prob'], np.nan))
+        today['EV'] = np.where(today['Bet_Home'] == 1, today['Home_EV'],
+                              np.where(today['Bet_Away'] == 1, today['Away_EV'], np.nan))
+        today_tidy = today.reset_index()[['Game', 'Time', 'Confirmed', 'Official Pick', 'Home_Win_Prob', 'Away_Win_Prob', 'EV', 'As Of']]
         today_tidy = today_tidy.rename(columns = {'Confirmed' : 'Lineups Confirmed'})
         today_tidy['Pr(Win)'] = today_tidy['Pr(Win)'].apply(lambda x: format(x, ".2%"))
         today_tidy['EV'] = today_tidy['EV'].apply(lambda x: format(x, ".2%"))
