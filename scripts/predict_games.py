@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from datetime import datetime
+from create_fm import CreateFeatureMatrix
 
 class PredictGames:
     def __init__(self):
@@ -63,7 +64,11 @@ class PredictGames:
         self.today['Away_ML'] = self.today['Away_ML'].apply(self.decimal_to_american)
         self.today['Away_ML'] = np.where(self.today['Away_ML'] > 0, '+' + self.today['Away_ML'].astype(str).str[:3], self.today['Away_ML'].astype(str).str[:4])
         self.today['Away_Win_Prob'] = 1 - self.today['Home_Win_Prob']
+        uncnf = self.get_other_games()
+        self.today = pd.concat([self.today.reset_index(), uncnf])
+        self.today = self.today.drop_duplicates(subset = ['Game_ID'], keep = 'first')
         self.today['As Of'] = datetime.now().strftime("%-m/%-d/%Y %H:%M:%S")
+        self.today = self.today.set_index('Game_ID')
         self.confirm_lineups()
 
     def confirm_lineups(self):
@@ -79,6 +84,24 @@ class PredictGames:
         self.today = self.today.drop(columns = ['Team']).rename(columns = {'Confirmed': 'Away_Confirmed'})
         self.today['Confirmed'] = np.where((self.today['Home_Confirmed'] == 'Y') & (self.today['Away_Confirmed'] == 'Y'), 'Y', 'N')
         self.today = self.today.drop(columns = ['Home_Confirmed', 'Away_Confirmed']).set_index('Game_ID')
+
+    def get_other_games(self):
+        today_h = pd.read_excel(self.fp + f'{self.today_date}_h.xls')
+        today_h['Game_ID'] = CreateFeatureMatrix().get_game_key(today_h)
+        today_h[['drop', 'Spread', 'drop', 'Total', 'ML']] = today_h['Odds'].str.split(' ', expand=True)
+        today_h = today_h[['Game_ID', 'g', 'Time', 'Team', 'Home', 'Away', 'Spread', 'Total', 'ML']].drop_duplicates()
+        today_home = today_h[today_h['Home'] == today_h['Team']]
+        today_away = today_h[today_h['Away'] == today_h['Team']]
+        today_home = today_home.rename(columns = {'Spread' : 'Home_Spread', 'Total' : 'Home_Total', 'ML' : 'Home_ML'})
+        today_away = today_away.rename(columns = {'Spread' : 'Away_Spread', 'Total' : 'Away_Total', 'ML' : 'Away_ML'})
+        today = pd.merge(today_home, today_away, on = ['Game_ID', 'g', 'Home', 'Away', 'Time'])
+        today = today[['Game_ID', 'Home', 'Away', 'g', 'Time', 'Home_ML', 'Away_ML']]
+        today = today.rename(columns = {'g' : 'Game_Number', 'Time' : 'Time_EST'})
+        today['Home_ML'] = today['Home_ML'].str.replace('(', '')
+        today['Away_ML'] = today['Away_ML'].str.replace('(', '')
+        today['Home_ML'] = today['Home_ML'].str.replace(')', '')
+        today['Away_ML'] = today['Away_ML'].str.replace(')', '')
+        return today
 
     def save_predictions(self):
         # convert time est to datetime
