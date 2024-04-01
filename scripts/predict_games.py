@@ -25,8 +25,6 @@ class PredictGames:
         today_fm_x = pd.concat([trained_fm_x, self.today_fm])
         today_fm_x = today_fm_x[today_fm_x['training_set'] != 1].fillna(0)
         today_fm_x = today_fm_x[trained_fm_x.columns].drop(columns = 'training_set')
-        today_fm_x = today_fm_x.replace([np.inf, -np.inf], 0)
-        today_fm_x = today_fm_x.replace([np.nan], 0)
 
         today_fm_x['Home_Win_Prob'] = self.pipeline.predict_proba(today_fm_x)[:, 1]
         self.results = today_fm_x[['Home_Win_Prob']]
