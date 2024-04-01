@@ -146,7 +146,7 @@ class RetrieveResults:
         pval = 1 - stats.t.cdf(tstat, n_bets - 1)
 
         roi = "{:.2%}".format(roi)
-        tstat = "{:.2f}".format(tstat)
+        tstat = "{:.4f}".format(tstat)
         pval = "{:.4f}".format(pval)
         # format units as 2 decimal places with +/- sign
         if units > 0:
@@ -160,9 +160,12 @@ class RetrieveResults:
         print(f'T-stat: {tstat} (p={pval})')
         mast_picks.to_csv('data/picks_results.csv')
 
+    def eval_results(self):
+        results.get_results()
+        results.merge_game_results()
+
 if __name__ == '__main__':
     results = RetrieveResults()
-    results.get_results()
-    results.merge_game_results()
+    results.eval_results()
 
 #%%

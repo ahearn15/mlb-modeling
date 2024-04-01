@@ -2,6 +2,7 @@ from bbm_scraper import BaseballMonsterScraper
 from create_fm import CreateFeatureMatrix
 from predict_games import PredictGames
 from publish_picks import PublishPicks
+from get_results import RetrieveResults
 
 def main():
     # Scrape Data
@@ -27,6 +28,9 @@ def main():
     publisher.publish_picks_gsheets()
     #print('Picks published successfully')
 
+    #print('Getting results')
+    results = GetResults()
+    results.eval_results()
 
 if __name__ == '__main__':
     main()

@@ -154,7 +154,6 @@ class BaseballMonsterScraper:
         self.scrape_games()
         self.driver.quit()
         self.scrape_lineups()
-        print('Scraping complete')
         os.chdir(self.orig_wd)
 
 if __name__ == '__main__':
