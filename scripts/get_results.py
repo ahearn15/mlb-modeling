@@ -161,8 +161,8 @@ class RetrieveResults:
         mast_picks.to_csv('data/picks_results.csv')
 
     def eval_results(self):
-        results.get_results()
-        results.merge_game_results()
+        self.get_results()
+        self.merge_game_results()
 
 if __name__ == '__main__':
     results = RetrieveResults()
