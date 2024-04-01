@@ -153,11 +153,6 @@ class RetrieveResults:
             units = "+" + "{:.2f}".format(units)
         else:
             units = "{:.2f}".format(units)
-
-        print('Current record: ' + current_record)
-        print(f'ROI: {roi}')
-        print(f'Units: {units}u')
-        print(f'T-stat: {tstat} (p={pval})')
         mast_picks.to_csv('data/picks_results.csv')
 
     def eval_results(self):
