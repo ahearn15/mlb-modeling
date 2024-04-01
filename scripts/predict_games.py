@@ -41,7 +41,7 @@ class PredictGames:
             return -100 / (decimal_odds - 1)
 
     def prepare_data(self):
-        roi_params = (1.125, 10, 0.00)
+        roi_params = (1.125, 10, -5)
         self.today = pd.concat([self.today_fm[['Away', 'Home', 'Time_EST', 'Game_Number', 'Home_ML', 'Away_ML']], self.results], axis=1)
         self.today['Home_EV'] = self.calculate_ev(self.today['Home_Win_Prob'], self.today['Home_ML'])
         self.today['Away_EV'] = self.calculate_ev(1 - self.today['Home_Win_Prob'], self.today['Away_ML'])
