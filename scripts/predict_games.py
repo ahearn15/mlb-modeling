@@ -14,7 +14,7 @@ class PredictGames:
 
     def load_data(self):
         self.trained_fm = pd.read_csv('data/feature_matrix.csv', low_memory=False).set_index('Game_ID')
-        self.today_fm = pd.read_csv(self.fp + f'{self.today_date}_fm.csv', low_memory=False).set_index('Game_ID').dropna()
+        self.today_fm = pd.read_csv(self.fp + f'{self.today_date}_fm.csv', low_memory=False).set_index('Game_ID')
 
     def load_model(self):
         self.pipeline = joblib.load('models/prod_model.pkl')
@@ -25,7 +25,6 @@ class PredictGames:
         today_fm_x = pd.concat([trained_fm_x, self.today_fm])
         today_fm_x = today_fm_x[today_fm_x['training_set'] != 1].fillna(0)
         today_fm_x = today_fm_x[trained_fm_x.columns].drop(columns = 'training_set')
-
         today_fm_x['Home_Win_Prob'] = self.pipeline.predict_proba(today_fm_x)[:, 1]
         self.results = today_fm_x[['Home_Win_Prob']]
 
