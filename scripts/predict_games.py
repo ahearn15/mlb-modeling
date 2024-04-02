@@ -14,7 +14,7 @@ class PredictGames:
 
     def load_data(self):
         self.trained_fm = pd.read_csv('data/feature_matrix.csv', low_memory=False).set_index('Game_ID')
-        self.today_fm = pd.read_csv(self.fp + f'{self.today_date}_fm.csv', low_memory=False).set_index('Game_ID')
+        self.today_fm = pd.read_csv(self.fp + f'{self.today_date}_fm.csv', low_memory=False).set_index('Game_ID').dropna()
 
     def load_model(self):
         self.pipeline = joblib.load('models/prod_model.pkl')
@@ -114,6 +114,7 @@ class PredictGames:
         self.predict()
         self.prepare_data()
         self.save_predictions()
+
 
 if __name__ == '__main__':
     predictor = PredictGames()
