@@ -179,8 +179,13 @@ class CreateFeatureMatrix:
         df['Total'] = df['Total'].str.replace(')', '')
         df['ML'] = df['ML'].str.replace(')', '')
         df['ML'] = df['ML'].str.replace('(', '')
-        df[['Temp', 'Wind_Dir', 'wind_dir2', 'Wind_Speed', 'Rain_Chance', 'Surface', '']] = df['Weather'].str.split(' ',
-                                                                                                                    expand=True)
+
+        try:
+            df[['Temp', 'Wind_Dir', 'wind_dir2', 'Wind_Speed', 'Rain_Chance', 'Surface', '']] = df['Weather'].str.split(' ',expand=True)
+        except:
+            df[['Temp', 'Wind_Dir', 'wind_dir2', 'Wind_Speed', 'Rain_Chance', 'Surface']] = df['Weather'].str.split(' ',expand=True)
+            df[''] = ""
+
         df['Wind_Dir'] = df['Wind_Dir'] + df['wind_dir2']
         df[['Wind_Speed', 'Wind2']] = df['Wind_Speed'].str.split('-', expand=True)
         df['Wind_Speed'] = (pd.to_numeric(df['Wind_Speed']) + pd.to_numeric(df['Wind2'])) / 2
@@ -394,3 +399,5 @@ class CreateFeatureMatrix:
 if __name__ == '__main__':
    fm = CreateFeatureMatrix()
    fm.create_feature_matrix()
+
+#%%
