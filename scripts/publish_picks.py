@@ -30,12 +30,27 @@ class PublishPicks:
                                     np.where(today['Bet_Away'] == 1, today['Away_Win_Prob'], np.nan))
         today['EV'] = np.where(today['Bet_Home'] == 1, today['Home_EV'],
                                np.where(today['Bet_Away'] == 1, today['Away_EV'], np.nan))
-        today_tidy = today.reset_index()[['Game', 'Time', 'Confirmed', 'Official Pick', 'Pr(Win)', 'EV', 'As Of']]
-        today_tidy = today_tidy.rename(columns = {'Confirmed' : 'Lineups Confirmed'})
+        today['Kelly Pct.'] = np.where(today['Bet_Home'] == 1, today['Home_Kelly'],
+                                        np.where(today['Bet_Away'] == 1, today['Away_Kelly'], np.nan))
+        today['Kelly Pct.'] = np.where(today['Kelly Pct.'] > 0.25, 0.25, today['Kelly Pct.'])
+        today['Kelly Units'] = today['Kelly Pct.'] * 100 / 5
+        today['Kelly Units'] = today['Kelly Units'].fillna(0)
+        today['Kelly Units'] = today['Kelly Units'].apply(lambda x: round(x * 2) / 2)
+
+        # remove trailing zeros
+        today['Kelly Units'] = today['Kelly Units'].apply(lambda x: str(x).rstrip('0').rstrip('.') if '.' in str(x) else x)
+        today['Kelly Units'] = np.where(today['Official Pick'] == 'No bet', '', today['Kelly Units'] + 'u')
+
+        today_tidy = today.reset_index()[['Game', 'Time', 'Confirmed', 'Official Pick', 'Pr(Win)', 'EV', 'As Of',
+                                          'Kelly Pct.', 'Kelly Units']]
+        today_tidy = today_tidy.rename(columns = {'Confirmed' : 'Lineups Confirmed', 'Kelly Units' : 'Units'})
         today_tidy['Pr(Win)'] = today_tidy['Pr(Win)'].apply(lambda x: format(x, ".2%"))
         today_tidy['EV'] = today_tidy['EV'].apply(lambda x: format(x, ".2%"))
+        today_tidy['Kelly Pct.'] = today_tidy['Kelly Pct.'].apply(lambda x: format(x, ".2%"))
         today_tidy['Pr(Win)'] = np.where(today_tidy['Pr(Win)'] == 'nan%', '', today_tidy['Pr(Win)'])
         today_tidy['EV'] = np.where(today_tidy['EV'] == 'nan%', '', today_tidy['EV'])
+        today_tidy['Kelly Pct.'] = np.where(today_tidy['Kelly Pct.'] == 'nan%', '', today_tidy['Kelly Pct.'])
+
         return today_tidy
 
     def publish_picks_gsheets(self):
@@ -44,8 +59,8 @@ class PublishPicks:
         #print(today_tidy[today_tidy['Official Pick'] != 'No bet'].drop(columns = ['As Of']))
         as_of = today_tidy['As Of'][0]
         today_tidy = today_tidy.drop(columns = 'As Of')
-        cols = ['MLB Picks', '', '', '', '', '']
-        second_row = pd.DataFrame([f'As of: {as_of}', '', '', '', '', '']).T
+        cols = ['MLB Picks', '', '', '', '', '', '', '']
+        second_row = pd.DataFrame([f'As of: {as_of}', '', '', '', '', '', '','']).T
         second_row.columns = cols
         third_row = pd.DataFrame(cols).T
         third_row.columns = cols
@@ -110,7 +125,7 @@ class PublishPicks:
 if __name__ == '__main__':
     publisher = PublishPicks()
     publisher.publish_picks_gsheets()
-    publisher.publish_results_gsheets()
+    #publisher.publish_results_gsheets()
 #%%
 
 #%%

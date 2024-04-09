@@ -44,6 +44,13 @@ class PredictGames:
         self.today = pd.concat([self.today_fm[['Away', 'Home', 'Time_EST', 'Game_Number', 'Home_ML', 'Away_ML']], self.results], axis=1)
         self.today['Home_EV'] = self.calculate_ev(self.today['Home_Win_Prob'], self.today['Home_ML'])
         self.today['Away_EV'] = self.calculate_ev(1 - self.today['Home_Win_Prob'], self.today['Away_ML'])
+
+        self.today['Home_Kelly'] = (((self.today['Home_ML'] - 1) * self.today['Home_Win_Prob']) -
+                                    (1 - self.today['Home_Win_Prob'])) / (self.today['Home_ML'] - 1)
+
+        self.today['Away_Kelly'] =(((self.today['Away_ML'] - 1) * (1-self.today['Home_Win_Prob'])) -
+                                   (self.today['Home_Win_Prob'])) / (self.today['Away_ML'] - 1)
+
         self.today['Bet_Home'] = np.where((self.today['Home_EV'] > self.today['Away_EV']) &
                                           (self.today['Home_EV'] > roi_params[2]) &
                                           (self.today['Home_ML'] > roi_params[0]) &
