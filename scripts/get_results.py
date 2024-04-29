@@ -120,7 +120,7 @@ class RetrieveResults:
         mast_picks = mast_picks.drop(columns = ['As Of', 'Confirmed'])
 
         results = pd.read_csv('data/game_results.csv')
-        mast_picks = mast_picks.merge(results[['Game_ID', 'Home_Runs', 'Away_Runs']], on = ['Game_ID'], how = 'inner')
+        mast_picks = mast_picks.merge(results[['Game_ID', 'Home_Runs', 'Away_Runs', 'Date']], on = ['Game_ID'], how = 'inner')
         mast_picks['Win_Bet'] = np.where(
             ((mast_picks['Bet_Home'] == 1) & (mast_picks['Home_Runs'] > mast_picks['Away_Runs'])) |
             ((mast_picks['Bet_Away'] == 1) & (mast_picks['Home_Runs'] < mast_picks['Away_Runs'])), 1, 0)
@@ -132,7 +132,24 @@ class RetrieveResults:
         mast_picks['Return'] = np.where((mast_picks['Bet_Home'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Home_ML'], 0)
         mast_picks['Return'] = np.where((mast_picks['Bet_Away'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Away_ML'], mast_picks['Return'])
         mast_picks['Result'] = mast_picks['Return'] - 1
-        mast_picks = mast_picks[['Game_ID', 'Home', 'Away', 'Game_Number', 'Home_ML', 'Away_ML', 'Home_Win_Prob', 'Away_Win_Prob', 'Home_EV', 'Away_EV', 'Home_Runs', 'Away_Runs', 'Bet_Home', 'Bet_Away', 'Win_Bet', 'Return', "Result"]]
+        mast_picks = mast_picks[['Game_ID', 'Date', 'Home', 'Away', 'Game_Number', 'Home_ML', 'Away_ML', 'Home_Win_Prob', 'Away_Win_Prob', 'Home_EV', 'Away_EV', 'Home_Runs', 'Away_Runs', 'Bet_Home', 'Bet_Away', 'Win_Bet', 'Return', "Result"]]
+        mast_picks['Home_Kelly'] = (((mast_picks['Home_ML'] - 1) * mast_picks['Home_Win_Prob']) - (mast_picks['Away_Win_Prob'])) / (mast_picks['Home_ML'] - 1)
+        mast_picks['Away_Kelly'] = (((mast_picks['Away_ML'] - 1) * mast_picks['Away_Win_Prob']) - (mast_picks['Home_Win_Prob'])) / (mast_picks['Away_ML'] - 1)
+
+        # capping home and away kelly at .25
+        mast_picks['Home_Kelly'] = np.where(mast_picks['Home_Kelly'] > .25, .25, mast_picks['Home_Kelly'])
+        mast_picks['Away_Kelly'] = np.where(mast_picks['Away_Kelly'] > .25, .25, mast_picks['Away_Kelly'])
+
+        mast_picks['Bet_Kelly'] = np.where((mast_picks['Bet_Home'] == 1), mast_picks['Home_Kelly'], mast_picks['Away_Kelly'])
+
+        mast_picks['Return_Kelly'] = np.where((mast_picks['Bet_Home'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Home_Kelly'] * mast_picks['Home_ML'], 0)
+        mast_picks['Return_Kelly'] = np.where((mast_picks['Bet_Away'] == 1) & (mast_picks['Win_Bet'] == 1), mast_picks['Away_Kelly'] * mast_picks['Away_ML'], mast_picks['Return_Kelly'])
+        mast_picks['Result_Kelly'] = np.where(mast_picks['Bet_Home'] == 1, mast_picks['Return_Kelly'] - mast_picks['Home_Kelly'],mast_picks['Return_Kelly'] - mast_picks['Away_Kelly'])
+
+
+        # standardize results to Units where 1 unit = .05 kelly
+        mast_picks['Bet_Kelly_Units'] = mast_picks['Bet_Kelly'] / .05
+        mast_picks['Result_Kelly_Units'] = mast_picks['Result_Kelly'] / .05
 
         roi = mast_picks['Return'].sum() / mast_picks['Return'].count()
         units = mast_picks['Return'].sum() - mast_picks['Return'].count()
@@ -153,6 +170,10 @@ class RetrieveResults:
             units = "+" + "{:.2f}".format(units)
         else:
             units = "{:.2f}".format(units)
+        mast_picks = mast_picks.sort_values(by = 'Date')
+        daily = mast_picks.groupby('Date').sum()[['Bet_Kelly_Units', 'Result_Kelly_Units']]
+        daily.to_csv('data/daily_results.csv')
+
         mast_picks.to_csv('data/picks_results.csv')
 
     def eval_results(self):
