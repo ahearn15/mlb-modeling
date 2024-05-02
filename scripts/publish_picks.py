@@ -75,6 +75,8 @@ class PublishPicks:
                 self.locked_picks = pd.concat([self.locked_picks, today_tidy.loc[[index]]])
 
         today_tidy = today_tidy.drop(columns = 'Time2')
+        if 'Time2' in self.locked_picks.columns:
+            self.locked_picks = self.locked_picks.drop(columns = 'Time2')
         # save locked picks to a file
         self.locked_picks.to_csv(self.fp + f'{self.today_date}_locked_picks.csv', index = False)
         return today_tidy
