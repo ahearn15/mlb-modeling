@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 import gspread
-from datetime import datetime
+from datetime import datetime, timedelta
 from scipy import stats
 import os
+
 
 class PublishPicks:
     def __init__(self):
@@ -14,7 +15,10 @@ class PublishPicks:
         year = self.today_date.split('-')[2]
         self.fp = f'data/monster_data/{year}/{self.fp}/'
         self.today_picks = pd.read_csv(self.fp + f'{self.today_date}_picks.csv', dtype = {'Home_ML' : str, 'Away_ML':str})
-
+        if os.path.exists(self.fp + f'{self.today_date}_locked_picks.csv'):
+            self.locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype = str)
+        else:
+            self.locked_picks = pd.DataFrame()
 
     def tidy_predictions(self):
         today = self.today_picks.copy()
@@ -41,7 +45,7 @@ class PublishPicks:
         today['Kelly Units'] = today['Kelly Units'].apply(lambda x: str(x).rstrip('0').rstrip('.') if '.' in str(x) else x)
         today['Kelly Units'] = np.where(today['Official Pick'] == 'No bet', '', today['Kelly Units'] + 'u')
 
-        today_tidy = today.reset_index()[['Game', 'Time', 'Confirmed', 'Official Pick', 'Pr(Win)', 'EV', 'As Of',
+        today_tidy = today.reset_index()[['Game_ID', 'Game', 'Time', 'Confirmed', 'Official Pick', 'Pr(Win)', 'EV', 'As Of',
                                           'Kelly Pct.', 'Kelly Units']]
         today_tidy = today_tidy.rename(columns = {'Confirmed' : 'Lineups Confirmed', 'Kelly Units' : 'Units'})
         today_tidy['Pr(Win)'] = today_tidy['Pr(Win)'].apply(lambda x: format(x, ".2%"))
@@ -51,16 +55,46 @@ class PublishPicks:
         today_tidy['EV'] = np.where(today_tidy['EV'] == 'nan%', '', today_tidy['EV'])
         today_tidy['Kelly Pct.'] = np.where(today_tidy['Kelly Pct.'] == 'nan%', '', today_tidy['Kelly Pct.'])
 
+        # convert time to datetime
+        today_tidy['Time2'] = today_tidy['Time'].str.split(' - ').str[1].str.replace('am', 'pm')
+        today_tidy['Time2'] = pd.to_datetime(today_tidy['Time2'], format = '%I:%M%p')
+
+        today_tidy['Time2'] = today_tidy['Time2'].apply(lambda x: x.replace(year = datetime.now().year,
+                                                                            month = datetime.now().month,
+                                                                            day = datetime.now().day))
+
+        # check if game start time is within 15 minutes
+        now = datetime.now()
+        for index, row in today_tidy.iterrows():
+            game_time = row['Time2']# assuming Time_EST is in '%H:%M' format
+            if (game_time - now) <= timedelta(minutes=15):
+                # check if game is already locked
+                if not self.locked_picks[self.locked_picks['Game_ID'] == row['Game_ID']].empty:
+                    continue  # skip this iteration if game is already locked
+                self.locked_picks = pd.concat([self.locked_picks, today_tidy.loc[[index]]])
+
+        today_tidy = today_tidy.drop(columns = 'Time2')
+        # save locked picks to a file
+        self.locked_picks.to_csv(self.fp + f'{self.today_date}_locked_picks.csv', index = False)
         return today_tidy
 
     def publish_picks_gsheets(self):
         today_tidy = self.tidy_predictions()
-        #print("Today's picks:")
+        today_tidy['Locked'] = 'N'
+        # load locked picks and append to today_tidy
+        locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype = str)
+        locked_picks['Locked'] = 'Y'
+        today_tidy = pd.concat([locked_picks, today_tidy])
+
+        for col in today_tidy:
+            today_tidy[col] = np.where(pd.isna(today_tidy[col]), '', today_tidy[col])
+        today_tidy = today_tidy.drop_duplicates(subset = 'Game_ID').drop(columns = 'Game_ID')
+                #print("Today's picks:")
         #print(today_tidy[today_tidy['Official Pick'] != 'No bet'].drop(columns = ['As Of']))
         as_of = today_tidy['As Of'][0]
         today_tidy = today_tidy.drop(columns = 'As Of')
-        cols = ['MLB Picks', '', '', '', '', '', '', '']
-        second_row = pd.DataFrame([f'As of: {as_of}', '', '', '', '', '', '','']).T
+        cols = ['MLB Picks', '', '', '', '', '', '', '', '']
+        second_row = pd.DataFrame([f'As of: {as_of}', '', '', '', '', '', '','', '']).T
         second_row.columns = cols
         third_row = pd.DataFrame(cols).T
         third_row.columns = cols
@@ -100,12 +134,12 @@ class PublishPicks:
         else:
             units = "{:.2f}".format(units)
 
-        cols = ['Season results'] + ([''] * 16)
+        cols = ['Season results'] + ([''] * 23)
 
-        second_row = pd.DataFrame([f'Record: {current_record}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
-        third_row = pd.DataFrame([f'ROI: {roi}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
-        fourth_row = pd.DataFrame([f'{units}u', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
-        fifth_row = pd.DataFrame([f'T-stat: {tstat} (p = {pval})', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'']).T
+        second_row = pd.DataFrame([f'Record: {current_record}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'', '','','','','','','']).T
+        third_row = pd.DataFrame([f'ROI: {roi}', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'', '','','','','','','']).T
+        fourth_row = pd.DataFrame([f'{units}u', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'', '','','','','','','']).T
+        fifth_row = pd.DataFrame([f'T-stat: {tstat} (p = {pval})', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ,'', '','','','','','','']).T
         second_row.columns = cols
         third_row.columns = cols
         fourth_row.columns = cols
@@ -113,6 +147,7 @@ class PublishPicks:
         header = pd.concat([second_row, third_row, fourth_row, fifth_row])
         blank_row = pd.DataFrame({col: np.nan for col in results.columns}, index=[0])
         results = pd.concat([blank_row, results], axis = 0)
+        print(results)
         results.iloc[0] = results.columns
         results.columns = cols
         results = pd.concat([header, results], axis = 0)
@@ -125,9 +160,5 @@ class PublishPicks:
 if __name__ == '__main__':
     publisher = PublishPicks()
     publisher.publish_picks_gsheets()
-    #publisher.publish_results_gsheets()
-#%%
-
-#%%
-
+    publisher.publish_results_gsheets()
 #%%
