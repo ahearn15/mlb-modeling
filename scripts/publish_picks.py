@@ -119,8 +119,8 @@ class PublishPicks:
         results['Date'] = results['Date'].str[:4] + '-' + results['Date'].str[4:6] + '-' + results['Date'].str[6:]
         results['Game_ID'] = results['Date']
         results = results.drop(columns = ['Date']).rename(columns = {'Game_ID' : 'Date'})
-        roi = results['Return'].sum() / results['Return'].count()
-        units = results['Return'].sum() - results['Return'].count()
+        roi = (results['Result_Kelly_Units'].sum() + results['Bet_Kelly_Units'].sum()) / results['Bet_Kelly_Units'].sum() - 1
+        units = results['Result_Kelly_Units'].sum()
         current_record = str(results['Win_Bet'].sum()) + '-' + str(results['Win_Bet'].count() - results['Win_Bet'].sum())
         n_bets = results['Win_Bet'].count()
         se = np.sqrt((1 - roi) ** 2 / n_bets)
