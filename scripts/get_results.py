@@ -110,7 +110,12 @@ class RetrieveResults:
                 files = os.listdir(dir)
                 # get all files that end with '_picks.csv'
                 for file in files:
-                    if '_picks.csv' in file:
+                    # first check if _locked_picks.csv exists
+                    if '_locked_picks.csv' in file:
+                        daily_picks = pd.read_csv(dir + '/' + file)
+                        mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
+                    # use _picks.csv if _locked_picks.csv does not exist
+                    elif '_picks.csv' in file:
                         daily_picks = pd.read_csv(dir + '/' + file)
                         mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
 
