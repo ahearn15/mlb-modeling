@@ -69,7 +69,8 @@ class PublishPicks:
             game_time = row['Time2']# assuming Time_EST is in '%H:%M' format
             if (game_time - now) <= timedelta(minutes=15):
                 # check if game is already locked
-                if not self.locked_picks[self.locked_picks['Game_ID'] == row['Game_ID']].empty:
+                if (('Game_ID' in self.locked_picks.columns) and not
+                self.locked_picks[self.locked_picks['Game_ID'] == row['Game_ID']].empty):
                     continue  # skip this iteration if game is already locked
                 self.locked_picks = pd.concat([self.locked_picks, today_tidy.loc[[index]]])
 
