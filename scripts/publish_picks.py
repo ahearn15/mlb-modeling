@@ -91,7 +91,8 @@ class PublishPicks:
         today_tidy = today_tidy.drop_duplicates(subset = 'Game_ID').drop(columns = 'Game_ID')
                 #print("Today's picks:")
         #print(today_tidy[today_tidy['Official Pick'] != 'No bet'].drop(columns = ['As Of']))
-        as_of = today_tidy['As Of'][0]
+        # get last value of today_tidy['As Of']
+        as_of = today_tidy['As Of'].iloc[-1]
         today_tidy = today_tidy.drop(columns = 'As Of')
         cols = ['MLB Picks', '', '', '', '', '', '', '', '']
         second_row = pd.DataFrame([f'As of: {as_of}', '', '', '', '', '', '','', '']).T
