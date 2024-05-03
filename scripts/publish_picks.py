@@ -16,7 +16,8 @@ class PublishPicks:
         year = self.today_date.split('-')[2]
         self.fp = f'data/monster_data/{year}/{self.fp}/'
         self.today_picks = pd.read_csv(self.fp + f'{self.today_date}_picks.csv', dtype={'Home_ML': str, 'Away_ML': str})
-        if os.path.exists(self.fp + f'{self.today_date}_locked_picks.csv'):
+        locked_picks_file = self.fp + f'{self.today_date}_locked_picks.csv'
+        if os.path.exists(locked_picks_file) and os.path.getsize(locked_picks_file) > 0:
             self.locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype=str)
         else:
             self.locked_picks = pd.DataFrame()
