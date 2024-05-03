@@ -25,6 +25,13 @@ class PublishPicks:
                 self.locked_picks = pd.DataFrame()
         else:
             self.locked_picks = pd.DataFrame()
+        if os.path.exists(self.fp + 'results_sent.txt'):
+            with open(self.fp + 'results_sent.txt', 'r') as f:
+                if f.read().strip() == 'Y':
+                    self.results_sent = True
+                    print('results already sent')
+        else:
+            self.results_sent = False
 
     def tidy_predictions(self):
         today = self.today_picks.copy()
@@ -168,12 +175,10 @@ class PublishPicks:
         current_time = datetime.now().strftime("%-m/%-d/%Y %H:%M:%S")
         # check if time is between 9:00 am and 12:00 pm
         current_time = datetime.strptime(current_time, "%m/%d/%Y %H:%M:%S")
-        if not (9 <= current_time.hour <= 12):
+        if self.results_sent:
             return
-        if os.path.exists(self.fp + 'results_sent.txt'):
-            with open(self.fp + 'results_sent.txt', 'r') as f:
-                if f.read().strip() == 'Y':
-                    return
+        if not (9 <= current_time.hour < 12):
+            return
 
         def calculate_record_and_units(df):
             win_bets = list(df[df['Win_Bet'] == 1].count())[0]
