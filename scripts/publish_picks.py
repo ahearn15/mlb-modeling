@@ -127,7 +127,6 @@ class PublishPicks:
         # read token from discord_token.txt
         with open('misc/discord_token.txt', 'r') as f:
             token = f.read()
-        print(token)
         loop = asyncio.get_event_loop()
         client = discord.Client(intents=discord.Intents.default())
         guild_name = 'Algorhythm Bets'
@@ -136,7 +135,6 @@ class PublishPicks:
         # send message to discord bot
         @client.event
         async def on_ready():
-            print("hello world")
             guild = discord.utils.get(client.guilds,
                                      name=guild_name)
             channel = discord.utils.get(guild.channels,
