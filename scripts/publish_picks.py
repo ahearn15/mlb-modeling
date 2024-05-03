@@ -86,7 +86,7 @@ class PublishPicks:
                     self.locked_picks = pd.concat([self.locked_picks, today_tidy.loc[[index]]])
                     # check if Official Pick is not 'No bet'
                     if row['Official Pick'] != 'No bet':
-                        self.send_to_discord_bot(today_tidy.loc[[index]])
+                        self.send_game_to_discord_bot(today_tidy.loc[[index]])
 
         today_tidy = today_tidy.drop(columns='Time2')
         if 'Time2' in self.locked_picks.columns:
@@ -131,7 +131,7 @@ class PublishPicks:
         sh = gc.worksheet("Today's Picks")
         sh.update([today_tidy.columns.values.tolist()] + today_tidy.values.tolist())
 
-    def send_to_discord_bot(self, game):
+    def send_game_to_discord_bot(self, game):
         # read token from discord_token.txt
         with open('misc/discord_token.txt', 'r') as f:
             token = f.read()
@@ -164,6 +164,74 @@ class PublishPicks:
             print(f'Error: {e}')
             loop.run_until_complete(client.close())
 
+    def send_results_to_discord_bot(self, results_df):
+        current_time = datetime.now().strftime("%-m/%-d/%Y %H:%M:%S")
+        # check if time is between 9:00 am and 12:00 pm
+        current_time = datetime.strptime(current_time, "%m/%d/%Y %H:%M:%S")
+        if not (9 <= current_time.hour <= 12):
+            return
+        if os.path.exists(self.fp + 'results_sent.txt'):
+            with open(self.fp + 'results_sent.txt', 'r') as f:
+                if f.read().strip() == 'Y':
+                    return
+
+        def calculate_record_and_units(df):
+            win_bets = list(df[df['Win_Bet'] == 1].count())[0]
+            lose_bets = list(df[df['Win_Bet'] == 0].count())[0]
+            record = f"{win_bets}-{lose_bets}"
+
+            units = round(df['Result_Kelly_Units'].sum() * 2) / 2
+            units = f"+{units}" if units > 0 else str(units)
+
+            return record, units
+
+        yesterday = results_df[results_df['Date'] == results_df['Date'].max()]
+        yesterday_record, yesterday_units = calculate_record_and_units(yesterday)
+
+        season_record, season_units = calculate_record_and_units(results_df)
+
+        roi = (results_df['Result_Kelly_Units'].sum() + results_df['Bet_Kelly_Units'].sum()) / results_df[
+            'Bet_Kelly_Units'].sum() - 1
+
+        n_bets = results_df['Win_Bet'].count()
+        se = np.sqrt((1 - roi) ** 2 / n_bets)
+        tstat = roi / se
+        pval = 1 - stats.t.cdf(tstat, n_bets - 1)
+
+        roi = "{:.2%}".format(roi)
+        pval = "{:.3}".format(pval)
+
+        message = (f"Yesterday: {yesterday_record} ({yesterday_units}u)\n"
+                   f"Season record: {season_record} ({season_units}u)\n"
+                   f"Season ROI: {roi} (p={pval})")
+
+        with open('misc/discord_token.txt', 'r') as f:
+            token = f.read()
+        loop = asyncio.get_event_loop()
+        client = discord.Client(intents=discord.Intents.default())
+        guild_name = 'Algorhythm Bets'
+        channel_name = 'mlb-daily-results'
+
+        # send message to discord bot
+        @client.event
+        async def on_ready():
+            guild = discord.utils.get(client.guilds,
+                                      name=guild_name)
+            channel = discord.utils.get(guild.channels,
+                                        name=channel_name)
+
+            await channel.send(message)
+            # close client after all messages sent
+            await client.close()
+
+        try:
+            loop.run_until_complete(client.start(token))
+        except Exception as e:
+            print(f'Error: {e}')
+            loop.run_until_complete(client.close())
+        with open(self.fp + 'results_sent.txt', 'w') as f:
+            f.write('Y')
+
     def publish_results_gsheets(self):
         results = pd.read_csv('data/picks_results.csv')
         results = results.drop(columns=['Unnamed: 0'])
@@ -171,6 +239,7 @@ class PublishPicks:
         results['Date'] = results['Date'].str[:4] + '-' + results['Date'].str[4:6] + '-' + results['Date'].str[6:]
         results['Game_ID'] = results['Date']
         results = results.drop(columns=['Date']).rename(columns={'Game_ID': 'Date'})
+        self.send_results_to_discord_bot(results)
         roi = (results['Result_Kelly_Units'].sum() + results['Bet_Kelly_Units'].sum()) / results[
             'Bet_Kelly_Units'].sum() - 1
         units = results['Result_Kelly_Units'].sum()
