@@ -112,8 +112,11 @@ class RetrieveResults:
                 for file in files:
                     # first check if _locked_picks.csv exists
                     if '_locked_picks.csv' in file:
-                        daily_picks = pd.read_csv(dir + '/' + file)
-                        mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
+                        try:
+                            daily_picks = pd.read_csv(dir + '/' + file)
+                            mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
+                        except pd.errors.EmptyDataError:
+                            pass
                     # use _picks.csv if _locked_picks.csv does not exist
                     elif '_picks.csv' in file:
                         daily_picks = pd.read_csv(dir + '/' + file)
