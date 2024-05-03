@@ -338,7 +338,7 @@ class CreateFeatureMatrix:
         return game_df
 
     def create_dummies(self, game_df):
-        dummy_cols = pd.get_dummies(game_df[['Wind_Dir', 'Surface', 'Generalized_Time']])
+        dummy_cols = pd.get_dummies(game_df[['Wind_Dir', 'Surface', 'Generalized_Time', 'Home']])
         game_df = pd.concat([game_df, dummy_cols], axis=1).drop(columns=['Wind_Dir', 'Surface', 'Generalized_Time'])
         game_df['Temp'] = pd.to_numeric(game_df['Temp'], errors='coerce')
         game_df['Temp'] = np.where(pd.isna(game_df['Temp']), 70, game_df['Temp'])

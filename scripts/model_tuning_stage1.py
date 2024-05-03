@@ -17,12 +17,12 @@ from sklearn.pipeline import Pipeline
 import warnings
 warnings.filterwarnings('ignore')
 
-# roi_grid = {
-#     'min_odds': [1.10, 1.25, 1.333, 1.5],
-#     'max_odds': [3, 5, 11],
-#     'min_ev': np.arange(0, 0.16, .025),
-#     'kelly_mult' : [.25, .5, .75, 1],
-#     'max_kelly_bet' : [.05, 0.075, .10, .25]}
+roi_grid = {
+    'min_odds': [1.10, 1.25, 1.333, 1.5],
+    'max_odds': [3, 5, 11],
+    'min_ev': np.arange(0, 0.16, .025),
+    'kelly_mult' : [.25, .5, .75, 1],
+    'max_kelly_bet' : [.05, 0.075, .10, .25]}
 
 # Define the parameter grids
 param_grids = {
@@ -177,7 +177,6 @@ def get_metrics(prob_dataframe):
     fm = clean_fm(prob_dataframe)
     prob_accuracy = fm['win_bet'].mean()
     #fm['prob'] = np.where(np.isinf(fm['prob']), 0, fm['prob'])
-    print(fm[['Home_Win', 'prob']])
     prob_brier = brier_score_loss(fm['Home_Win'], fm['prob'])
     prob_logloss = log_loss(fm['Home_Win'], fm['prob'])
     dic = {'prob_accuracy': prob_accuracy, 'prob_brier': prob_brier, 'prob_logloss': prob_logloss}
@@ -235,7 +234,6 @@ def evaluate_params(params, pipeline, param_grid, X, y, kf):
 
 
 def custom_random_search(pipeline, param_grid, X, y, n_iter_cv, n_iter_search=1000):
-    print('getting all params')
     def random_combinations(iterables, r):
         # Calculate the total number of combinations possible
         pools = list(map(tuple, iterables))
@@ -258,7 +256,6 @@ def custom_random_search(pipeline, param_grid, X, y, n_iter_cv, n_iter_search=10
             yield combination_from_index(index)
     param_grid_values = list(param_grid.values())
     random_params = list(random_combinations(param_grid_values, n_iter_search))
-    print('splitting data')
     kf = KFold(n_splits=n_iter_cv, shuffle=True, random_state=44)
     print(
         f'Fitting {n_iter_cv} folds for each of {len(random_params)} candidates, totalling {n_iter_cv * len(random_params)} fits.')
@@ -269,10 +266,7 @@ def custom_random_search(pipeline, param_grid, X, y, n_iter_cv, n_iter_search=10
 
 
 def fit_kfold(model, n_splits, n_search):
-    print("reading data")
     fm = pd.read_feather('data/feature_matrix.feather')
-    fm = fm.dropna()
-    print(fm.shape)
     curr_yr_fm = pd.read_csv('data/curr_year_feature_matrix.csv').set_index('Game_ID')
     # keep only columns that are in both feature matrices
     curr_yr_fm = curr_yr_fm[[col for col in curr_yr_fm.columns if col in fm.columns]]
@@ -284,7 +278,6 @@ def fit_kfold(model, n_splits, n_search):
                          'Home_Cover', 'Away_Cover', 'Away_ML_Hit', 'Over_Hit', 'Under_Hit', 'Home_Spread',
                          'Away_Spread']).fillna(0)
     y = fm['Home_Win']
-    print(X.shape)
     # Create a pipeline that includes scaling, PCA, and the classifier
     pipeline = Pipeline([
         ('scaler', StandardScaler()),
@@ -292,6 +285,8 @@ def fit_kfold(model, n_splits, n_search):
         ('classifier', model)])
 
     param_grid = param_grids[type(model)]
+    classifier = str(pipeline['classifier']).split('(')[0] + '()'
+    print(f"Searching {classifier}")
     scores = custom_random_search(pipeline, param_grid, X, y, n_iter_cv=n_splits, n_iter_search=n_search)
     print('Search completed')
     scores['model'] = str(model).split('(')[0] + '()'
@@ -302,22 +297,22 @@ def fit_kfold(model, n_splits, n_search):
     #scores['max_roi'] = scores[['roi', 'roi_kelly']].max(axis=1)
     #scores = scores.sort_values(by='max_roi', ascending=False)
     #scores = scores.drop(columns='max_roi')
-    classifier = str(pipeline['classifier']).split('(')[0] + '()'
     scores.to_feather(f'results/{classifier}_scores.feather')
     return scores
 
 
 def model_evaluation(model):
-    scores = fit_kfold(model, n_splits=10, n_search=1000)
+    scores = fit_kfold(model, n_splits=5, n_search=2)
     return scores
 
 
 def main():
     xgb_model_results = model_evaluation(xgb.XGBClassifier(nthread=-1))
-    rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
-    logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
     svc_results = model_evaluation(SVC(probability=True))
     mlp_results = model_evaluation(MLPClassifier())
+    rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
+    logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
 
 if __name__ == '__main__':
     main()
+#%%
