@@ -1,0 +1,81 @@
+,team code, game_date, game_number, mlb id, player name, batting order, confirmed, position, weather
+0,TEX,4/18/2024,1,543760,Marcus Semien,1,Y,2B,64 I CF 7-7 10% outdoor
+1,TEX,4/18/2024,1,608369,Corey Seager,2,Y,SS,64 I CF 7-7 10% outdoor
+2,TEX,4/18/2024,1,694497,Evan Carter,3,Y,LF,64 I CF 7-7 10% outdoor
+3,TEX,4/18/2024,1,666969,Adolis Garcia,4,Y,RF,64 I CF 7-7 10% outdoor
+4,TEX,4/18/2024,1,669701,Josh Smith,5,Y,3B,64 I CF 7-7 10% outdoor
+5,TEX,4/18/2024,1,694671,Wyatt Langford,6,Y,DH,64 I CF 7-7 10% outdoor
+6,TEX,4/18/2024,1,641680,Jonah Heim,7,Y,C,64 I CF 7-7 10% outdoor
+7,TEX,4/18/2024,1,677649,Ezequiel Duran,8,Y,1B,64 I CF 7-7 10% outdoor
+8,TEX,4/18/2024,1,665750,Leody Taveras,9,Y,CF,64 I CF 7-7 10% outdoor
+9,TEX,4/18/2024,1,683004,Jack Leiter,SP,Y,,64 I CF 7-7 10% outdoor
+10,DET,4/18/2024,1,682985,Riley Greene,1,Y,LF,64 I CF 7-7 10% outdoor
+11,DET,4/18/2024,1,592192,Mark Canha,2,Y,RF,64 I CF 7-7 10% outdoor
+12,DET,4/18/2024,1,681481,Kerry Carpenter,3,Y,DH,64 I CF 7-7 10% outdoor
+13,DET,4/18/2024,1,679529,Spencer Torkelson,4,Y,1B,64 I CF 7-7 10% outdoor
+14,DET,4/18/2024,1,663837,Matt Vierling,5,Y,CF,64 I CF 7-7 10% outdoor
+15,DET,4/18/2024,1,690993,Colt Keith,6,Y,2B,64 I CF 7-7 10% outdoor
+16,DET,4/18/2024,1,570482,Giovanny Urshela,7,Y,3B,64 I CF 7-7 10% outdoor
+17,DET,4/18/2024,1,595879,Javier Baez,8,Y,SS,64 I CF 7-7 10% outdoor
+18,DET,4/18/2024,1,608348,Carson Kelly,9,Y,C,64 I CF 7-7 10% outdoor
+19,DET,4/18/2024,1,628317,Kenta Maeda,SP,Y,,64 I CF 7-7 10% outdoor
+20,LAA,4/18/2024,1,543685,Anthony Rendon,1,Y,3B,dome 
+21,LAA,4/18/2024,1,545361,Mike Trout,2,Y,CF,dome 
+22,LAA,4/18/2024,1,621493,Taylor Ward,3,Y,LF,dome 
+23,LAA,4/18/2024,1,593934,Miguel Sano,4,Y,DH,dome 
+24,LAA,4/18/2024,1,642136,Matt Thaiss,5,Y,C,dome 
+25,LAA,4/18/2024,1,666160,Mickey Moniak,6,Y,RF,dome 
+26,LAA,4/18/2024,1,650859,Luis Rengifo,7,Y,2B,dome 
+27,LAA,4/18/2024,1,694384,Nolan Schanuel,8,Y,1B,dome 
+28,LAA,4/18/2024,1,687263,Zach Neto,9,Y,SS,dome 
+29,LAA,4/18/2024,1,656288,Griffin Canning,SP,Y,,dome 
+30,TB,4/18/2024,1,650490,Yandy Diaz,1,Y,DH,dome 
+31,TB,4/18/2024,1,680700,Richie Palacios,2,Y,RF,dome 
+32,TB,4/18/2024,1,642708,Amed Rosario,3,Y,2B,dome 
+33,TB,4/18/2024,1,623912,Harold Ramirez,4,Y,LF,dome 
+34,TB,4/18/2024,1,676609,Jose Caballero,5,Y,SS,dome 
+35,TB,4/18/2024,1,668853,Austin Shenton,6,Y,1B,dome 
+36,TB,4/18/2024,1,678554,Curtis Mead,7,Y,3B,dome 
+37,TB,4/18/2024,1,642350,Jose Siri,8,Y,CF,dome 
+38,TB,4/18/2024,1,650907,Rene Pinto,9,Y,C,dome 
+39,TB,4/18/2024,1,686752,Ryan Pepiot,SP,Y,,dome 
+40,CLE,4/18/2024,1,665926,Andres Gimenez,1,Y,2B,45 I CF 7-9 65% outdoor
+41,CLE,4/18/2024,1,681807,David Fry,2,Y,LF,45 I CF 7-9 65% outdoor
+42,CLE,4/18/2024,1,608070,Jose Ramirez,3,Y,DH,45 I CF 7-9 65% outdoor
+43,CLE,4/18/2024,1,647304,Josh Naylor,4,Y,1B,45 I CF 7-9 65% outdoor
+44,CLE,4/18/2024,1,671289,Tyler Freeman,5,Y,CF,45 I CF 7-9 65% outdoor
+45,CLE,4/18/2024,1,666310,Bo Naylor,6,Y,C,45 I CF 7-9 65% outdoor
+46,CLE,4/18/2024,1,657656,Ramon Laureano,7,Y,RF,45 I CF 7-9 65% outdoor
+47,CLE,4/18/2024,1,672356,Gabriel Arias,8,Y,3B,45 I CF 7-9 65% outdoor
+48,CLE,4/18/2024,1,677587,Brayan Rocchio,9,Y,SS,45 I CF 7-9 65% outdoor
+49,CLE,4/18/2024,1,471911,Carlos Carrasco,SP,Y,,45 I CF 7-9 65% outdoor
+50,BOS,4/18/2024,1,680776,Jarren Duran,1,Y,LF,45 I CF 7-9 65% outdoor
+51,BOS,4/18/2024,1,671213,Triston Casas,2,Y,1B,45 I CF 7-9 65% outdoor
+52,BOS,4/18/2024,1,677800,Wilyer Abreu,3,Y,RF,45 I CF 7-9 65% outdoor
+53,BOS,4/18/2024,1,665839,Enmanuel Valdez,4,Y,2B,45 I CF 7-9 65% outdoor
+54,BOS,4/18/2024,1,657136,Connor Wong,5,Y,DH,45 I CF 7-9 65% outdoor
+55,BOS,4/18/2024,1,666152,David Hamilton,6,Y,SS,45 I CF 7-9 65% outdoor
+56,BOS,4/18/2024,1,622569,Pablo Reyes,7,Y,3B,45 I CF 7-9 65% outdoor
+57,BOS,4/18/2024,1,624512,Reese McGuire,8,Y,C,45 I CF 7-9 65% outdoor
+58,BOS,4/18/2024,1,678882,Ceddanne Rafaela,9,Y,CF,45 I CF 7-9 65% outdoor
+59,BOS,4/18/2024,1,657514,Brennan Bernardino,SP,Y,,45 I CF 7-9 65% outdoor
+60,ARI,4/18/2024,1,606466,Ketel Marte,1,Y,2B,61 O CF 6-8 1% outdoor
+61,ARI,4/18/2024,1,682998,Corbin Carroll,2,Y,CF,61 O CF 6-8 1% outdoor
+62,ARI,4/18/2024,1,592626,Joc Pederson,3,Y,DH,61 O CF 6-8 1% outdoor
+63,ARI,4/18/2024,1,572233,Christian Walker,4,Y,1B,61 O CF 6-8 1% outdoor
+64,ARI,4/18/2024,1,553993,Eugenio Suarez,5,Y,3B,61 O CF 6-8 1% outdoor
+65,ARI,4/18/2024,1,672515,Gabriel Moreno,6,Y,C,61 O CF 6-8 1% outdoor
+66,ARI,4/18/2024,1,607054,Jace Peterson,7,Y,SS,61 O CF 6-8 1% outdoor
+67,ARI,4/18/2024,1,545341,Randal Grichuk,8,Y,RF,61 O CF 6-8 1% outdoor
+68,ARI,4/18/2024,1,664983,Jake McCarthy,9,Y,LF,61 O CF 6-8 1% outdoor
+69,ARI,4/18/2024,1,669194,Ryne Nelson,SP,Y,,61 O CF 6-8 1% outdoor
+70,SF,4/18/2024,1,808982,Jung Hoo Lee,1,Y,CF,61 O CF 6-8 1% outdoor
+71,SF,4/18/2024,1,664774,LaMonte Wade,2,Y,1B,61 O CF 6-8 1% outdoor
+72,SF,4/18/2024,1,624585,Jorge Soler,3,Y,DH,61 O CF 6-8 1% outdoor
+73,SF,4/18/2024,1,624424,Michael Conforto,4,Y,LF,61 O CF 6-8 1% outdoor
+74,SF,4/18/2024,1,656305,Matt Chapman,5,Y,3B,61 O CF 6-8 1% outdoor
+75,SF,4/18/2024,1,642731,Thairo Estrada,6,Y,2B,61 O CF 6-8 1% outdoor
+76,SF,4/18/2024,1,573262,Mike Yastrzemski,7,Y,RF,61 O CF 6-8 1% outdoor
+77,SF,4/18/2024,1,672275,Patrick Bailey,8,Y,C,61 O CF 6-8 1% outdoor
+78,SF,4/18/2024,1,605113,Nick Ahmed,9,Y,SS,61 O CF 6-8 1% outdoor
+79,SF,4/18/2024,1,657277,Logan Webb,SP,Y,,61 O CF 6-8 1% outdoor
