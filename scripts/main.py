@@ -5,6 +5,10 @@ from publish_picks import PublishPicks
 from get_results import RetrieveResults
 
 def main():
+    #print('Getting results')
+    results = RetrieveResults()
+    results.eval_results()
+
     # Scrape Data
     #print('Scraping data')
     scraper = BaseballMonsterScraper()
@@ -28,10 +32,6 @@ def main():
     publisher.publish_picks_gsheets()
     publisher.publish_results_gsheets()
     #print('Picks published successfully')
-
-    #print('Getting results')
-    results = RetrieveResults()
-    results.eval_results()
 
 if __name__ == '__main__':
     main()
