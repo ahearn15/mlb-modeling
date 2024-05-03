@@ -7,7 +7,7 @@ import time
 import os
 import pickle
 warnings.filterwarnings('ignore')
-
+import glob
 
 class CreateFeatureMatrix:
     def __init__(self):
@@ -382,6 +382,26 @@ class CreateFeatureMatrix:
         game_df = calculate_implied_odds(game_df)
         return game_df
 
+    def get_curr_year_fm(self):
+        # Define the pattern for CSV files
+        pattern = 'data/monster_data/2024/**/*_fm.csv'
+
+        # Use glob to match the pattern
+        csv_files = glob.glob(pattern, recursive=True)
+
+        # Read in the CSV files
+        dataframes = [pd.read_csv(f) for f in csv_files]
+
+        #concatenate all dataframes
+        df = pd.concat(dataframes)
+
+        # merge in results dataframe
+        results = pd.read_csv('data/game_results.csv')
+        results['Home_Win'] = np.where(results['Home_Runs'] > results['Away_Runs'], 1, 0)
+        results = results[['Game_ID', 'Home_Win']]
+        df = df.merge(results, on='Game_ID', how='left')
+        df.to_csv('data/curr_year_feature_matrix.csv', index = False)
+
     def create_feature_matrix(self):
         player_data = self.get_player_data()
         game_data = self.get_game_data()
@@ -395,6 +415,9 @@ class CreateFeatureMatrix:
         fm = game_df.set_index('Game_ID')
         year = self.today_date.split('-')[2]
         fm.to_csv(self.fp + f'{self.today_date}_fm.csv')
+
+        self.get_curr_year_fm()
+
 
 if __name__ == '__main__':
    fm = CreateFeatureMatrix()
