@@ -270,7 +270,12 @@ def fit_kfold(model, n_splits, n_search):
     curr_yr_fm = pd.read_csv('data/curr_year_feature_matrix.csv').set_index('Game_ID')
     # keep only columns that are in both feature matrices
     curr_yr_fm = curr_yr_fm[[col for col in curr_yr_fm.columns if col in fm.columns]]
+    curr_yr_fm['season'] = '2024'
+    fm['season'] = '2023'
+
     fm = pd.concat([fm, curr_yr_fm])
+    # convert to dummies
+    fm = pd.get_dummies(fm, columns=['season'])
 
     fm = fm.dropna(subset = 'Home_Win')
 
