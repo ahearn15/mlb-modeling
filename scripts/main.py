@@ -26,6 +26,7 @@ def main():
     #print('Publishing picks')
     publisher = PublishPicks()
     publisher.publish_picks_gsheets()
+    publisher.publish_results_gsheets()
     #print('Picks published successfully')
 
     #print('Getting results')
