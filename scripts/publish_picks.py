@@ -224,7 +224,8 @@ class PublishPicks:
             channel = discord.utils.get(guild.channels,
                                         name=channel_name)
 
-            await channel.send(message)
+            await channel.send(message, file=discord.File('data/season_results.png'))
+
             # close client after all messages sent
             await client.close()
 

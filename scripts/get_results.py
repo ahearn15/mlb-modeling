@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 import os
 import re
 import requests
+from matplotlib import pyplot as plt
 from scipy import stats
+
 
 class RetrieveResults:
     def __init__(self):
@@ -184,9 +186,51 @@ class RetrieveResults:
 
         mast_picks.to_csv('data/picks_results.csv')
 
+    def create_fig(self):
+        res = pd.read_csv('data/picks_results.csv')
+        res = res.drop(columns=['Unnamed: 0'])
+        res['Date'] = res['Game_ID'].str.split('-').str[2]
+        res['Date'] = res['Date'].str[:4] + '-' + res['Date'].str[4:6] + '-' + res['Date'].str[6:]
+        res['Result_Kelly_Units'] = round(res['Result_Kelly_Units'] * 2) / 2
+
+        res = res.groupby('Date')['Result_Kelly_Units'].sum().reset_index()
+        res['Cumulative_Units'] = res['Result_Kelly_Units'].cumsum()
+        # add a zero as first row, indicating start of season
+        res = pd.concat([pd.DataFrame({'Date': '2024-03-27', 'Result_Kelly_Units': [0], 'Cumulative_Units': [0]}), res]).reset_index(drop=True)
+        res['col'] = np.where(res['Result_Kelly_Units'] < 0, '#b81500', '#028241')
+
+        # make barplot of daily results, color by positive/negative
+        plt.figure(figsize=(12, 9))
+        plt.bar(res['Date'], res['Result_Kelly_Units'], color=res['col'], alpha=0.8)
+        plt.xticks(rotation=90)
+        # add cumulative line
+        plt.plot(res['Date'], res['Cumulative_Units'], color='#006e9f')
+        # label last point in line
+        plt.text(res['Date'].iloc[-1], res['Cumulative_Units'].iloc[-1], f'+{res["Cumulative_Units"].iloc[-1]:.2f}u', fontsize=12)
+
+        # remove right spine
+        plt.gca().spines['right'].set_visible(False)
+        # remove top spine
+        plt.gca().spines['top'].set_visible(False)
+
+        # add horizontal line at 0
+        plt.axhline(0, color='black', linestyle='--')
+
+        # label y axis "Units"
+        plt.ylabel('Units')
+        # label x axis "Date"
+        plt.xlabel('Date')
+
+        plt.title('Season results')
+        # save plot
+        plt.savefig('data/season_results.png')
+
+
     def eval_results(self):
-        self.get_results()
-        self.merge_game_results()
+            self.get_results()
+            self.merge_game_results()
+            self.create_fig()
+
 
 if __name__ == '__main__':
     results = RetrieveResults()
