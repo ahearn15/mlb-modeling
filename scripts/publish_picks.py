@@ -176,7 +176,7 @@ class PublishPicks:
         current_time = datetime.strptime(current_time, "%m/%d/%Y %H:%M:%S")
         if self.results_sent:
             return
-        if not (9 <= current_time.hour < 12):
+        if not (9 <= current_time.hour):
             return
 
         def calculate_record_and_units(df):
