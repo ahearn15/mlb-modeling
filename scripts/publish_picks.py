@@ -29,7 +29,6 @@ class PublishPicks:
             with open(self.fp + 'results_sent.txt', 'r') as f:
                 if f.read().strip() == 'Y':
                     self.results_sent = True
-                    print('results already sent')
         else:
             self.results_sent = False
 
