@@ -191,7 +191,8 @@ class RetrieveResults:
         res = res.drop(columns=['Unnamed: 0'])
         res['Date'] = res['Game_ID'].str.split('-').str[2]
         res['Date'] = res['Date'].str[:4] + '-' + res['Date'].str[4:6] + '-' + res['Date'].str[6:]
-        res['Result_Kelly_Units'] = round(res['Result_Kelly_Units'] * 2) / 2
+        #res['Result_Kelly_Units'] = round(res['Result_Kelly_Units'] * 2) / 2
+        units = round(res['Result_Kelly_Units'].sum() * 2) / 2
 
         res = res.groupby('Date')['Result_Kelly_Units'].sum().reset_index()
         res['Cumulative_Units'] = res['Result_Kelly_Units'].cumsum()
@@ -206,7 +207,7 @@ class RetrieveResults:
         # add cumulative line
         plt.plot(res['Date'], res['Cumulative_Units'], color='#006e9f')
         # label last point in line
-        plt.text(res['Date'].iloc[-1], res['Cumulative_Units'].iloc[-1], f'+{res["Cumulative_Units"].iloc[-1]:.2f}u', fontsize=12)
+        plt.text(res['Date'].iloc[-1], res['Cumulative_Units'].iloc[-1], f'+{units}u', fontsize=12)
 
         # remove right spine
         plt.gca().spines['right'].set_visible(False)
