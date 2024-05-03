@@ -7,6 +7,7 @@ import os
 import discord
 import asyncio
 
+
 class PublishPicks:
     def __init__(self):
         self.today_date = datetime.now()
@@ -17,8 +18,11 @@ class PublishPicks:
         self.fp = f'data/monster_data/{year}/{self.fp}/'
         self.today_picks = pd.read_csv(self.fp + f'{self.today_date}_picks.csv', dtype={'Home_ML': str, 'Away_ML': str})
         locked_picks_file = self.fp + f'{self.today_date}_locked_picks.csv'
-        if os.path.exists(locked_picks_file) and os.path.getsize(locked_picks_file) > 0:
-            self.locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype=str)
+        if os.path.exists(locked_picks_file):
+            try:
+                self.locked_picks = pd.read_csv(locked_picks_file, dtype=str)
+            except pd.errors.EmptyDataError:
+                self.locked_picks = pd.DataFrame()
         else:
             self.locked_picks = pd.DataFrame()
 
@@ -95,8 +99,11 @@ class PublishPicks:
         today_tidy = self.tidy_predictions()
         today_tidy['Locked'] = 'N'
         # load locked picks and append to today_tidy
-        locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype=str)
-        locked_picks['Locked'] = 'Y'
+        try:
+            locked_picks = pd.read_csv(self.fp + f'{self.today_date}_locked_picks.csv', dtype=str)
+            locked_picks['Locked'] = 'Y'
+        except pd.errors.EmptyDataError:
+            locked_picks = pd.DataFrame()
         today_tidy = pd.concat([locked_picks, today_tidy])
 
         for col in today_tidy:
@@ -137,9 +144,9 @@ class PublishPicks:
         @client.event
         async def on_ready():
             guild = discord.utils.get(client.guilds,
-                                     name=guild_name)
+                                      name=guild_name)
             channel = discord.utils.get(guild.channels,
-                                   name=channel_name)
+                                        name=channel_name)
 
             message = (f"🚨OFFICIAL PICK🚨\n"
                        f"{game['Game'].values[0]}\n"
@@ -148,7 +155,7 @@ class PublishPicks:
                        f"({game['EV'].values[0]} EV)\n"
                        f"{game['Units'].values[0]} ({game['Kelly Pct.'].values[0]}) \n")
             await channel.send(message)
-            #close client after all messages sent
+            # close client after all messages sent
             await client.close()
 
         try:
