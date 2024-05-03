@@ -199,9 +199,8 @@ class PublishPicks:
         fourth_row.columns = cols
         fifth_row.columns = cols
         header = pd.concat([second_row, third_row, fourth_row, fifth_row])
-        blank_row = pd.DataFrame({col: np.nan for col in results.columns}, index=[0])
+        blank_row = pd.DataFrame({col: "" for col in results.columns}, index=[0])
         results = pd.concat([blank_row, results], axis=0)
-        print(results)
         results.iloc[0] = results.columns
         results.columns = cols
         results = pd.concat([header, results], axis=0)
