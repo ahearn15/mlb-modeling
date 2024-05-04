@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import log_loss, brier_score_loss
+from sklearn.metrics import log_loss, brier_score_loss, roc_auc_score, precision_score, recall_score, f1_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
@@ -16,6 +16,7 @@ from joblib import Parallel, delayed
 from sklearn.pipeline import Pipeline
 import warnings
 warnings.filterwarnings('ignore')
+
 
 roi_grid = {
     'min_odds': [1.10, 1.25, 1.333, 1.5],
@@ -179,7 +180,20 @@ def get_metrics(prob_dataframe):
     #fm['prob'] = np.where(np.isinf(fm['prob']), 0, fm['prob'])
     prob_brier = brier_score_loss(fm['Home_Win'], fm['prob'])
     prob_logloss = log_loss(fm['Home_Win'], fm['prob'])
-    dic = {'prob_accuracy': prob_accuracy, 'prob_brier': prob_brier, 'prob_logloss': prob_logloss}
+    # get roc_auc score
+    roc_auc = roc_auc_score(fm['Home_Win'], fm['prob'])
+    precision = precision_score(fm['Home_Win'], fm['prob'] > 0.5)
+    recall = recall_score(fm['Home_Win'], fm['prob'] > 0.5)
+    f1 = f1_score(fm['Home_Win'], fm['prob'] > 0.5)
+
+    dic = {'prob_accuracy': prob_accuracy,
+           'prob_brier': prob_brier,
+           'prob_logloss': prob_logloss,
+           'roc_auc': roc_auc,
+           'precision': precision,
+           'recall': recall,
+           'f1': f1}
+
     return dic
 
 
@@ -307,16 +321,16 @@ def fit_kfold(model, n_splits, n_search):
 
 
 def model_evaluation(model):
-    scores = fit_kfold(model, n_splits=10, n_search=1000)
+    scores = fit_kfold(model, n_splits=2, n_search=5)
     return scores
 
 
 def main():
     xgb_model_results = model_evaluation(xgb.XGBClassifier(nthread=-1))
-    svc_results = model_evaluation(SVC(probability=True))
-    mlp_results = model_evaluation(MLPClassifier())
-    rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
-    logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
+    #svc_results = model_evaluation(SVC(probability=True))
+    #mlp_results = model_evaluation(MLPClassifier())
+    #rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
+    #logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
 
 if __name__ == '__main__':
     main()
