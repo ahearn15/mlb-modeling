@@ -327,10 +327,10 @@ def model_evaluation(model):
 
 def main():
     xgb_model_results = model_evaluation(xgb.XGBClassifier(nthread=-1))
-    #svc_results = model_evaluation(SVC(probability=True))
-    #mlp_results = model_evaluation(MLPClassifier())
-    #rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
-    #logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
+    svc_results = model_evaluation(SVC(probability=True))
+    mlp_results = model_evaluation(MLPClassifier())
+    rf_model_results = model_evaluation(RandomForestClassifier(n_jobs=-1, random_state=44))
+    logistic_model_results = model_evaluation(LogisticRegression(n_jobs=-1))
 
 if __name__ == '__main__':
     main()
