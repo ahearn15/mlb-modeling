@@ -186,7 +186,6 @@ def get_metrics(prob_dataframe):
     recall = recall_score(fm['Home_Win'], fm['prob'] > 0.5)
     f1 = f1_score(fm['Home_Win'], fm['prob'] > 0.5)
 
-    # add to dictionary
     dic = {'prob_accuracy': prob_accuracy,
            'prob_brier': prob_brier,
            'prob_logloss': prob_logloss,
