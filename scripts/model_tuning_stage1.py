@@ -321,7 +321,7 @@ def fit_kfold(model, n_splits, n_search):
 
 
 def model_evaluation(model):
-    scores = fit_kfold(model, n_splits=100, n_search=1000)
+    scores = fit_kfold(model, n_splits=10, n_search=1000)
     return scores
 
 
