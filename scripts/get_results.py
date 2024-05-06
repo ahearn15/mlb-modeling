@@ -143,6 +143,7 @@ class RetrieveResults:
 
                             daily_picks['Home_Kelly'] = ((daily_picks['Home_ML_Dec'] - 1) * daily_picks['Home_Win_Prob'] - (1 - daily_picks['Home_Win_Prob'])) / (daily_picks['Home_ML_Dec'] - 1)
                             daily_picks['Away_Kelly'] = ((daily_picks['Away_ML_Dec'] - 1) * daily_picks['Away_Win_Prob'] - (1 - daily_picks['Away_Win_Prob'])) / (daily_picks['Away_ML_Dec'] - 1)
+                            daily_picks['Priority'] = 1
                             mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
 
                         except pd.errors.EmptyDataError:
@@ -150,8 +151,12 @@ class RetrieveResults:
                     # use _picks.csv if _locked_picks.csv does not exist
                     elif '_picks.csv' in file and read_locked == False:
                         daily_picks = pd.read_csv(dir + '/' + file)
+                        daily_picks['Priority'] = 0
+
                         mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
 
+        mast_picks = mast_picks.sort_values(by = ['Game_ID', 'Priority'], ascending=False)
+        mast_picks = mast_picks.drop_duplicates(subset = 'Game_ID', keep = 'first')
         # only get games that were bet on
         mast_picks['Bet'] = mast_picks['Bet_Home'] + mast_picks['Bet_Away']
         mast_picks = mast_picks[mast_picks['Bet'] == 1]
@@ -209,7 +214,6 @@ class RetrieveResults:
         else:
             units = "{:.2f}".format(units)
         mast_picks = mast_picks.sort_values(by = 'Date')
-        mast_picks.to_csv('data/mast_picks_test.csv')
 
         daily = mast_picks.groupby('Date')[['Bet_Kelly_Units', 'Result_Kelly_Units']].sum()
         daily.to_csv('data/daily_results.csv')
