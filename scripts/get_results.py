@@ -111,16 +111,44 @@ class RetrieveResults:
                 # get all files in directory
                 files = os.listdir(dir)
                 # get all files that end with '_picks.csv'
+                read_locked = False
                 for file in files:
                     # first check if _locked_picks.csv exists
                     if '_locked_picks.csv' in file:
                         try:
+                            read_locked = True
                             daily_picks = pd.read_csv(dir + '/' + file)
+                            # need to convert CHC (-113) vs MIL (+103) to Home: CHC, Away: MIL, Home_ML: -113, Away_ML: +103
+                            daily_picks['Away'] = daily_picks['Game_ID'].str.split('-').str[0]
+                            daily_picks['Home'] = daily_picks['Game_ID'].str.split('-').str[1]
+                            daily_picks['Home_ML'] = pd.to_numeric(daily_picks['Game'].str.split(' ').str[1].str.replace('(', '').str.replace(')', '').str.replace('+', ''))
+                            daily_picks['Away_ML'] = pd.to_numeric(daily_picks['Game'].str.split(' ').str[-1].str.replace('(', '').str.replace(')', '').str.replace('+', ''))
+
+                            # get last char in game_id
+                            daily_picks['Game_Number'] = daily_picks['Game_ID'].str[-1]
+                            daily_picks['Time_EST'] = daily_picks['Time'].str.split('-').str[-1]
+                            daily_picks['Bet_Home'] = np.where(daily_picks['Official Pick'].str.split(' ').str[0] == daily_picks['Home'], 1, 0)
+                            daily_picks['Bet_Away'] = np.where(daily_picks['Official Pick'].str.split(' ').str[0] == daily_picks['Away'], 1, 0)
+
+                            daily_picks['Home_Win_Prob'] = np.where(daily_picks['Bet_Home'] == 1,
+                                                                    pd.to_numeric(daily_picks['Pr(Win)'].str.replace('%', ''))/100,
+                                                                    1 - pd.to_numeric(daily_picks['Pr(Win)'].str.replace('%', ''))/100)
+                            daily_picks['Away_Win_Prob'] = 1 - daily_picks['Home_Win_Prob']
+
+                            daily_picks['Home_ML_Dec'] = np.where(daily_picks['Home_ML'] > 0, (daily_picks['Home_ML'] / 100) + 1, (100 / abs(daily_picks['Home_ML'])) + 1)
+                            daily_picks['Away_ML_Dec'] = np.where(daily_picks['Away_ML'] > 0, (daily_picks['Away_ML'] / 100) + 1, (100 / abs(daily_picks['Away_ML'])) + 1)
+
+                            daily_picks['Home_EV'] = daily_picks['Home_Win_Prob'] * (daily_picks['Home_ML_Dec'] - 1) - (1 - daily_picks['Home_Win_Prob'])
+                            daily_picks['Away_EV'] = daily_picks['Away_Win_Prob'] * (daily_picks['Away_ML_Dec'] - 1) - (1 - daily_picks['Away_Win_Prob'])
+
+                            daily_picks['Home_Kelly'] = ((daily_picks['Home_ML_Dec'] - 1) * daily_picks['Home_Win_Prob'] - (1 - daily_picks['Home_Win_Prob'])) / (daily_picks['Home_ML_Dec'] - 1)
+                            daily_picks['Away_Kelly'] = ((daily_picks['Away_ML_Dec'] - 1) * daily_picks['Away_Win_Prob'] - (1 - daily_picks['Away_Win_Prob'])) / (daily_picks['Away_ML_Dec'] - 1)
                             mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
+
                         except pd.errors.EmptyDataError:
                             pass
                     # use _picks.csv if _locked_picks.csv does not exist
-                    elif '_picks.csv' in file:
+                    elif '_picks.csv' in file and read_locked == False:
                         daily_picks = pd.read_csv(dir + '/' + file)
                         mast_picks = pd.concat([mast_picks, daily_picks], axis = 0)
 
@@ -181,7 +209,9 @@ class RetrieveResults:
         else:
             units = "{:.2f}".format(units)
         mast_picks = mast_picks.sort_values(by = 'Date')
-        daily = mast_picks.groupby('Date').sum()[['Bet_Kelly_Units', 'Result_Kelly_Units']]
+        mast_picks.to_csv('data/mast_picks_test.csv')
+
+        daily = mast_picks.groupby('Date')[['Bet_Kelly_Units', 'Result_Kelly_Units']].sum()
         daily.to_csv('data/daily_results.csv')
 
         mast_picks.to_csv('data/picks_results.csv')
@@ -191,8 +221,7 @@ class RetrieveResults:
         res = res.drop(columns=['Unnamed: 0'])
         res['Date'] = res['Game_ID'].str.split('-').str[2]
         res['Date'] = res['Date'].str[:4] + '-' + res['Date'].str[4:6] + '-' + res['Date'].str[6:]
-        #res['Result_Kelly_Units'] = round(res['Result_Kelly_Units'] * 2) / 2
-        units = round(res['Result_Kelly_Units'].sum() * 2) / 2
+        units = round(res['Result_Kelly_Units'].sum(),1)
 
         res = res.groupby('Date')['Result_Kelly_Units'].sum().reset_index()
         res['Cumulative_Units'] = res['Result_Kelly_Units'].cumsum()
@@ -236,5 +265,3 @@ class RetrieveResults:
 if __name__ == '__main__':
     results = RetrieveResults()
     results.eval_results()
-
-#%%
