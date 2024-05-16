@@ -1,0 +1,301 @@
+,team code, game_date, game_number, mlb id, player name, batting order, confirmed, position, weather
+0,LAA,5/8/2024,1,501303,Ehire Adrianza,1,Y,2B,78 O LF 7-13 0% outdoor
+1,LAA,5/8/2024,1,657061,Cole Tucker,2,Y,3B,78 O LF 7-13 0% outdoor
+2,LAA,5/8/2024,1,621493,Taylor Ward,3,Y,LF,78 O LF 7-13 0% outdoor
+3,LAA,5/8/2024,1,607680,Kevin Pillar,4,Y,CF,78 O LF 7-13 0% outdoor
+4,LAA,5/8/2024,1,681351,Logan O'Hoppe,5,Y,C,78 O LF 7-13 0% outdoor
+5,LAA,5/8/2024,1,592273,Brandon Drury,6,Y,1B,78 O LF 7-13 0% outdoor
+6,LAA,5/8/2024,1,641432,Willie Calhoun,7,Y,DH,78 O LF 7-13 0% outdoor
+7,LAA,5/8/2024,1,666176,Jo Adell,8,Y,RF,78 O LF 7-13 0% outdoor
+8,LAA,5/8/2024,1,687263,Zach Neto,9,Y,SS,78 O LF 7-13 0% outdoor
+9,LAA,5/8/2024,1,667755,Jose Soriano,SP,Y,,78 O LF 7-13 0% outdoor
+10,PIT,5/8/2024,1,457705,Andrew McCutchen,1,Y,DH,78 O LF 7-13 0% outdoor
+11,PIT,5/8/2024,1,668804,Bryan Reynolds,2,Y,LF,78 O LF 7-13 0% outdoor
+12,PIT,5/8/2024,1,665833,Oneil Cruz,3,Y,SS,78 O LF 7-13 0% outdoor
+13,PIT,5/8/2024,1,656582,Connor Joe,4,Y,RF,78 O LF 7-13 0% outdoor
+14,PIT,5/8/2024,1,642133,Rowdy Tellez,5,Y,1B,78 O LF 7-13 0% outdoor
+15,PIT,5/8/2024,1,669707,Jared Triolo,6,Y,3B,78 O LF 7-13 0% outdoor
+16,PIT,5/8/2024,1,669261,Jack Suwinski,7,Y,CF,78 O LF 7-13 0% outdoor
+17,PIT,5/8/2024,1,663698,Joey Bart,8,Y,C,78 O LF 7-13 0% outdoor
+18,PIT,5/8/2024,1,675961,Alika Williams,9,Y,2B,78 O LF 7-13 0% outdoor
+19,PIT,5/8/2024,1,527048,Martin Perez,SP,Y,,78 O LF 7-13 0% outdoor
+20,TOR,5/8/2024,1,543807,George Springer,1,Y,RF,82 N LR 10-15 0% outdoor
+21,TOR,5/8/2024,1,662139,Daulton Varsho,2,Y,LF,82 N LR 10-15 0% outdoor
+22,TOR,5/8/2024,1,665489,Vladimir Guerrero,3,Y,1B,82 N LR 10-15 0% outdoor
+23,TOR,5/8/2024,1,457759,Justin Turner,4,Y,DH,82 N LR 10-15 0% outdoor
+24,TOR,5/8/2024,1,643376,Danny Jansen,5,Y,C,82 N LR 10-15 0% outdoor
+25,TOR,5/8/2024,1,666182,Bo Bichette,6,Y,SS,82 N LR 10-15 0% outdoor
+26,TOR,5/8/2024,1,676914,Davis Schneider,7,Y,2B,82 N LR 10-15 0% outdoor
+27,TOR,5/8/2024,1,643396,Isiah Kiner-Falefa,8,Y,3B,82 N LR 10-15 0% outdoor
+28,TOR,5/8/2024,1,595281,Kevin Kiermaier,9,Y,CF,82 N LR 10-15 0% outdoor
+29,TOR,5/8/2024,1,605135,Chris Bassitt,SP,Y,,82 N LR 10-15 0% outdoor
+30,PHI,5/8/2024,1,656941,Kyle Schwarber,1,Y,DH,82 N LR 10-15 0% outdoor
+31,PHI,5/8/2024,1,592663,JT Realmuto,2,Y,C,82 N LR 10-15 0% outdoor
+32,PHI,5/8/2024,1,547180,Bryce Harper,3,Y,1B,82 N LR 10-15 0% outdoor
+33,PHI,5/8/2024,1,664761,Alec Bohm,4,Y,3B,82 N LR 10-15 0% outdoor
+34,PHI,5/8/2024,1,669016,Brandon Marsh,5,Y,LF,82 N LR 10-15 0% outdoor
+35,PHI,5/8/2024,1,592206,Nick Castellanos,6,Y,RF,82 N LR 10-15 0% outdoor
+36,PHI,5/8/2024,1,681082,Bryson Stott,7,Y,2B,82 N LR 10-15 0% outdoor
+37,PHI,5/8/2024,1,624641,Edmundo Sosa,8,Y,SS,82 N LR 10-15 0% outdoor
+38,PHI,5/8/2024,1,679032,Johan Rojas,9,Y,CF,82 N LR 10-15 0% outdoor
+39,PHI,5/8/2024,1,605400,Aaron Nola,SP,Y,,82 N LR 10-15 0% outdoor
+40,DET,5/8/2024,1,682985,Riley Greene,1,Y,LF,77 N LR 10-13 3% outdoor
+41,DET,5/8/2024,1,628451,Andy Ibanez,2,Y,2B,77 N LR 10-13 3% outdoor
+42,DET,5/8/2024,1,672761,Wenceel Perez,3,Y,CF,77 N LR 10-13 3% outdoor
+43,DET,5/8/2024,1,681481,Kerry Carpenter,4,Y,RF,77 N LR 10-13 3% outdoor
+44,DET,5/8/2024,1,690993,Colt Keith,5,Y,DH,77 N LR 10-13 3% outdoor
+45,DET,5/8/2024,1,679529,Spencer Torkelson,6,Y,1B,77 N LR 10-13 3% outdoor
+46,DET,5/8/2024,1,656716,Zach McKinstry,7,Y,3B,77 N LR 10-13 3% outdoor
+47,DET,5/8/2024,1,595879,Javier Baez,8,Y,SS,77 N LR 10-13 3% outdoor
+48,DET,5/8/2024,1,668670,Jake Rogers,9,Y,C,77 N LR 10-13 3% outdoor
+49,DET,5/8/2024,1,681857,Reese Olson,SP,Y,,77 N LR 10-13 3% outdoor
+50,CLE,5/8/2024,1,664314,Estevan Florial,1,Y,RF,77 N LR 10-13 3% outdoor
+51,CLE,5/8/2024,1,665926,Andres Gimenez,2,Y,2B,77 N LR 10-13 3% outdoor
+52,CLE,5/8/2024,1,608070,Jose Ramirez,3,Y,DH,77 N LR 10-13 3% outdoor
+53,CLE,5/8/2024,1,647304,Josh Naylor,4,Y,1B,77 N LR 10-13 3% outdoor
+54,CLE,5/8/2024,1,681807,David Fry,5,Y,LF,77 N LR 10-13 3% outdoor
+55,CLE,5/8/2024,1,686823,Will Brennan,6,Y,CF,77 N LR 10-13 3% outdoor
+56,CLE,5/8/2024,1,672356,Gabriel Arias,7,Y,3B,77 N LR 10-13 3% outdoor
+57,CLE,5/8/2024,1,595978,Austin Hedges,8,Y,C,77 N LR 10-13 3% outdoor
+58,CLE,5/8/2024,1,677587,Brayan Rocchio,9,Y,SS,77 N LR 10-13 3% outdoor
+59,CLE,5/8/2024,1,676440,Tanner Bibee,SP,Y,,77 N LR 10-13 3% outdoor
+60,MIL,5/8/2024,1,668930,Brice Turang,1,Y,2B,74 N LR 7-10 8% outdoor
+61,MIL,5/8/2024,1,661388,William Contreras,2,Y,C,74 N LR 7-10 8% outdoor
+62,MIL,5/8/2024,1,592885,Christian Yelich,3,Y,DH,74 N LR 7-10 8% outdoor
+63,MIL,5/8/2024,1,642715,Willy Adames,4,Y,SS,74 N LR 7-10 8% outdoor
+64,MIL,5/8/2024,1,641343,Jake Bauers,5,Y,LF,74 N LR 7-10 8% outdoor
+65,MIL,5/8/2024,1,686217,Sal Frelick,6,Y,RF,74 N LR 7-10 8% outdoor
+66,MIL,5/8/2024,1,596142,Gary Sanchez,7,Y,1B,74 N LR 7-10 8% outdoor
+67,MIL,5/8/2024,1,686554,Oliver Dunn,8,Y,3B,74 N LR 7-10 8% outdoor
+68,MIL,5/8/2024,1,663368,Blake Perkins,9,Y,CF,74 N LR 7-10 8% outdoor
+69,MIL,5/8/2024,1,605452,Joe Ross,SP,Y,,74 N LR 7-10 8% outdoor
+70,KC,5/8/2024,1,672580,Maikel Garcia,1,Y,3B,74 N LR 7-10 8% outdoor
+71,KC,5/8/2024,1,677951,Bobby Witt Jr.,2,Y,SS,74 N LR 7-10 8% outdoor
+72,KC,5/8/2024,1,686469,Vinnie Pasquantino,3,Y,1B,74 N LR 7-10 8% outdoor
+73,KC,5/8/2024,1,686681,Michael Massey,4,Y,DH,74 N LR 7-10 8% outdoor
+74,KC,5/8/2024,1,592669,Hunter Renfroe,5,Y,RF,74 N LR 7-10 8% outdoor
+75,KC,5/8/2024,1,624428,Adam Frazier,6,Y,2B,74 N LR 7-10 8% outdoor
+76,KC,5/8/2024,1,669004,MJ Melendez,7,Y,LF,74 N LR 7-10 8% outdoor
+77,KC,5/8/2024,1,666023,Freddy Fermin,8,Y,C,74 N LR 7-10 8% outdoor
+78,KC,5/8/2024,1,664728,Kyle Isbel,9,Y,CF,74 N LR 7-10 8% outdoor
+79,KC,5/8/2024,1,663903,Brady Singer,SP,Y,,74 N LR 7-10 8% outdoor
+80,SD,5/8/2024,1,650333,Luis Arraez,1,Y,DH,66 I RF 10-10 23% outdoor
+81,SD,5/8/2024,1,665487,Fernando Tatis Jr,2,Y,RF,66 I RF 10-10 23% outdoor
+82,SD,5/8/2024,1,630105,Jake Cronenworth,3,Y,1B,66 I RF 10-10 23% outdoor
+83,SD,5/8/2024,1,592518,Manny Machado,4,Y,3B,66 I RF 10-10 23% outdoor
+84,SD,5/8/2024,1,595777,Jurickson Profar,5,Y,LF,66 I RF 10-10 23% outdoor
+85,SD,5/8/2024,1,593428,Xander Bogaerts,6,Y,2B,66 I RF 10-10 23% outdoor
+86,SD,5/8/2024,1,701538,Jackson Merrill,7,Y,CF,66 I RF 10-10 23% outdoor
+87,SD,5/8/2024,1,669134,Luis Campusano,8,Y,C,66 I RF 10-10 23% outdoor
+88,SD,5/8/2024,1,673490,Ha-seong Kim,9,Y,SS,66 I RF 10-10 23% outdoor
+89,SD,5/8/2024,1,656302,Dylan Cease,SP,Y,,66 I RF 10-10 23% outdoor
+90,CHC,5/8/2024,1,663538,Nico Hoerner,1,Y,SS,66 I RF 10-10 23% outdoor
+91,CHC,5/8/2024,1,643565,Mike Tauchman,2,Y,RF,66 I RF 10-10 23% outdoor
+92,CHC,5/8/2024,1,641355,Cody Bellinger,3,Y,DH,66 I RF 10-10 23% outdoor
+93,CHC,5/8/2024,1,666624,Christopher Morel,4,Y,3B,66 I RF 10-10 23% outdoor
+94,CHC,5/8/2024,1,664023,Ian Happ,5,Y,LF,66 I RF 10-10 23% outdoor
+95,CHC,5/8/2024,1,683737,Michael Busch,6,Y,1B,66 I RF 10-10 23% outdoor
+96,CHC,5/8/2024,1,670156,Miles Mastrobuoni,7,Y,2B,66 I RF 10-10 23% outdoor
+97,CHC,5/8/2024,1,543228,Yan Gomes,8,Y,C,66 I RF 10-10 23% outdoor
+98,CHC,5/8/2024,1,691718,Pete Crow-Armstrong,9,Y,CF,66 I RF 10-10 23% outdoor
+99,CHC,5/8/2024,1,669713,Hayden Wesneski,SP,Y,,66 I RF 10-10 23% outdoor
+100,MIA,5/8/2024,1,665862,Jazz Chisholm,1,Y,CF,72 O RF 10-10 0% outdoor
+101,MIA,5/8/2024,1,650559,Bryan De La Cruz,2,Y,DH,72 O RF 10-10 0% outdoor
+102,MIA,5/8/2024,1,669394,Jake Burger,3,Y,3B,72 O RF 10-10 0% outdoor
+103,MIA,5/8/2024,1,605137,Josh Bell,4,Y,1B,72 O RF 10-10 0% outdoor
+104,MIA,5/8/2024,1,660821,Jesus Sanchez,5,Y,RF,72 O RF 10-10 0% outdoor
+105,MIA,5/8/2024,1,624503,Nick Gordon,6,Y,LF,72 O RF 10-10 0% outdoor
+106,MIA,5/8/2024,1,660644,Vidal Brujan,7,Y,SS,72 O RF 10-10 0% outdoor
+107,MIA,5/8/2024,1,663743,Nicholas Fortes,8,Y,C,72 O RF 10-10 0% outdoor
+108,MIA,5/8/2024,1,672640,Otto Lopez,9,Y,2B,72 O RF 10-10 0% outdoor
+109,MIA,5/8/2024,1,677960,Ryan Weathers,SP,Y,,72 O RF 10-10 0% outdoor
+110,LAD,5/8/2024,1,605141,Mookie Betts,1,Y,SS,72 O RF 10-10 0% outdoor
+111,LAD,5/8/2024,1,660271,Shohei (H) Ohtani,2,Y,DH,72 O RF 10-10 0% outdoor
+112,LAD,5/8/2024,1,518692,Freddie Freeman,3,Y,1B,72 O RF 10-10 0% outdoor
+113,LAD,5/8/2024,1,606192,Teoscar Hernandez,4,Y,RF,72 O RF 10-10 0% outdoor
+114,LAD,5/8/2024,1,571771,Enrique Hernandez,5,Y,LF,72 O RF 10-10 0% outdoor
+115,LAD,5/8/2024,1,571970,Max Muncy,6,Y,3B,72 O RF 10-10 0% outdoor
+116,LAD,5/8/2024,1,681624,Andy Pages,7,Y,CF,72 O RF 10-10 0% outdoor
+117,LAD,5/8/2024,1,500743,Miguel Rojas,8,Y,2B,72 O RF 10-10 0% outdoor
+118,LAD,5/8/2024,1,605131,Austin Barnes,9,Y,C,72 O RF 10-10 0% outdoor
+119,LAD,5/8/2024,1,694813,Gavin Stone,SP,Y,,72 O RF 10-10 0% outdoor
+120,TEX,5/8/2024,1,543760,Marcus Semien,1,Y,2B,75 N LR 16-18 0% outdoor
+121,TEX,5/8/2024,1,608369,Corey Seager,2,Y,SS,75 N LR 16-18 0% outdoor
+122,TEX,5/8/2024,1,663993,Nathaniel Lowe,3,Y,1B,75 N LR 16-18 0% outdoor
+123,TEX,5/8/2024,1,666969,Adolis Garcia,4,Y,RF,75 N LR 16-18 0% outdoor
+124,TEX,5/8/2024,1,641680,Jonah Heim,5,Y,C,75 N LR 16-18 0% outdoor
+125,TEX,5/8/2024,1,677649,Ezequiel Duran,6,Y,LF,75 N LR 16-18 0% outdoor
+126,TEX,5/8/2024,1,673995,Davis Wendzel,7,Y,3B,75 N LR 16-18 0% outdoor
+127,TEX,5/8/2024,1,668800,Andrew Knizner,8,Y,C,75 N LR 16-18 0% outdoor
+128,TEX,5/8/2024,1,665750,Leody Taveras,9,Y,CF,75 N LR 16-18 0% outdoor
+129,TEX,5/8/2024,1,547179,Michael Lorenzen,SP,Y,,75 N LR 16-18 0% outdoor
+130,OAK,5/8/2024,1,647351,Abraham Toro,1,Y,2B,75 N LR 16-18 0% outdoor
+131,OAK,5/8/2024,1,663527,Tyler Nevin,2,Y,RF,75 N LR 16-18 0% outdoor
+132,OAK,5/8/2024,1,668709,JJ Bleday,3,Y,CF,75 N LR 16-18 0% outdoor
+133,OAK,5/8/2024,1,667670,Brent Rooker,4,Y,RF,75 N LR 16-18 0% outdoor
+134,OAK,5/8/2024,1,605204,J.D. Davis,5,Y,1B,75 N LR 16-18 0% outdoor
+135,OAK,5/8/2024,1,669127,Shea Langeliers,6,Y,C,75 N LR 16-18 0% outdoor
+136,OAK,5/8/2024,1,680474,Max Schuemann,7,Y,SS,75 N LR 16-18 0% outdoor
+137,OAK,5/8/2024,1,665923,Esteury Ruiz,8,Y,LF,75 N LR 16-18 0% outdoor
+138,OAK,5/8/2024,1,695391,Brett Harris,9,Y,3B,75 N LR 16-18 0% outdoor
+139,OAK,5/8/2024,1,676664,JP Sears,SP,Y,,75 N LR 16-18 0% outdoor
+140,ARI,5/8/2024,1,682998,Corbin Carroll,1,Y,CF,69 I RF 8-9 62% outdoor
+141,ARI,5/8/2024,1,606466,Ketel Marte,2,Y,2B,69 I RF 8-9 62% outdoor
+142,ARI,5/8/2024,1,592626,Joc Pederson,3,Y,DH,69 I RF 8-9 62% outdoor
+143,ARI,5/8/2024,1,572233,Christian Walker,4,Y,1B,69 I RF 8-9 62% outdoor
+144,ARI,5/8/2024,1,666971,Lourdes Gurriel,5,Y,LF,69 I RF 8-9 62% outdoor
+145,ARI,5/8/2024,1,553993,Eugenio Suarez,6,Y,3B,69 I RF 8-9 62% outdoor
+146,ARI,5/8/2024,1,672515,Gabriel Moreno,7,Y,C,69 I RF 8-9 62% outdoor
+147,ARI,5/8/2024,1,656976,Pavin Smith,8,Y,RF,69 I RF 8-9 62% outdoor
+148,ARI,5/8/2024,1,621028,Kevin Newman,9,Y,SS,69 I RF 8-9 62% outdoor
+149,ARI,5/8/2024,1,656756,Jordan Montgomery,SP,Y,,69 I RF 8-9 62% outdoor
+150,CIN,5/8/2024,1,663697,Jonathan India,1,Y,2B,69 I RF 8-9 62% outdoor
+151,CIN,5/8/2024,1,682829,Elly De La Cruz,2,Y,SS,69 I RF 8-9 62% outdoor
+152,CIN,5/8/2024,1,668715,Spencer Steer,3,Y,LF,69 I RF 8-9 62% outdoor
+153,CIN,5/8/2024,1,663886,Tyler Stephenson,4,Y,C,69 I RF 8-9 62% outdoor
+154,CIN,5/8/2024,1,669289,Santiago Espinal,5,Y,3B,69 I RF 8-9 62% outdoor
+155,CIN,5/8/2024,1,656413,Stuart Fairchild,6,Y,RF,69 I RF 8-9 62% outdoor
+156,CIN,5/8/2024,1,600869,Jeimer Candelario,7,Y,1B,69 I RF 8-9 62% outdoor
+157,CIN,5/8/2024,1,670770,T.J. Friedl,8,Y,CF,69 I RF 8-9 62% outdoor
+158,CIN,5/8/2024,1,571912,Luke Maile,9,Y,DH,69 I RF 8-9 62% outdoor
+159,CIN,5/8/2024,1,668933,Graham Ashcraft,SP,Y,,69 I RF 8-9 62% outdoor
+160,TEX,5/8/2024,2,543760,Marcus Semien,1,Y,2B,69 N LR 15-17 0% outdoor
+161,TEX,5/8/2024,2,694497,Evan Carter,2,Y,LF,69 N LR 15-17 0% outdoor
+162,TEX,5/8/2024,2,663993,Nathaniel Lowe,3,Y,1B,69 N LR 15-17 0% outdoor
+163,TEX,5/8/2024,2,666969,Adolis Garcia,4,Y,RF,69 N LR 15-17 0% outdoor
+164,TEX,5/8/2024,2,669701,Josh Smith,5,Y,3B,69 N LR 15-17 0% outdoor
+165,TEX,5/8/2024,2,641680,Jonah Heim,6,Y,C,69 N LR 15-17 0% outdoor
+166,TEX,5/8/2024,2,608671,Travis Jankowski,7,Y,RF,69 N LR 15-17 0% outdoor
+167,TEX,5/8/2024,2,677649,Ezequiel Duran,8,Y,LF,69 N LR 15-17 0% outdoor
+168,TEX,5/8/2024,2,665750,Leody Taveras,9,Y,CF,69 N LR 15-17 0% outdoor
+169,TEX,5/8/2024,2,683004,Jack Leiter,SP,Y,,69 N LR 15-17 0% outdoor
+170,OAK,5/8/2024,2,647351,Abraham Toro,1,Y,2B,69 N LR 15-17 0% outdoor
+171,OAK,5/8/2024,2,668709,JJ Bleday,2,Y,CF,69 N LR 15-17 0% outdoor
+172,OAK,5/8/2024,2,667670,Brent Rooker,3,Y,RF,69 N LR 15-17 0% outdoor
+173,OAK,5/8/2024,2,664913,Seth Brown,4,Y,LF,69 N LR 15-17 0% outdoor
+174,OAK,5/8/2024,2,669127,Shea Langeliers,5,Y,C,69 N LR 15-17 0% outdoor
+175,OAK,5/8/2024,2,668832,Kyle McCann,6,Y,C,69 N LR 15-17 0% outdoor
+176,OAK,5/8/2024,2,680474,Max Schuemann,7,Y,SS,69 N LR 15-17 0% outdoor
+177,OAK,5/8/2024,2,691016,Tyler Soderstrom,8,Y,C,69 N LR 15-17 0% outdoor
+178,OAK,5/8/2024,2,695391,Brett Harris,9,Y,3B,69 N LR 15-17 0% outdoor
+179,OAK,5/8/2024,2,674370,Osvaldo Bido,SP,Y,,69 N LR 15-17 0% outdoor
+180,BAL,5/8/2024,1,683002,Gunnar Henderson,1,Y,SS,74 N LR 5-6 30% outdoor
+181,BAL,5/8/2024,1,668939,Adley Rutschman,2,Y,DH,74 N LR 5-6 30% outdoor
+182,BAL,5/8/2024,1,663624,Ryan Mountcastle,3,Y,1B,74 N LR 5-6 30% outdoor
+183,BAL,5/8/2024,1,623993,Anthony Santander,4,Y,RF,74 N LR 5-6 30% outdoor
+184,BAL,5/8/2024,1,676059,Jordan Westburg,5,Y,3B,74 N LR 5-6 30% outdoor
+185,BAL,5/8/2024,1,622761,Jorge Mateo,6,Y,2B,74 N LR 5-6 30% outdoor
+186,BAL,5/8/2024,1,681297,Colton Cowser,7,Y,LF,74 N LR 5-6 30% outdoor
+187,BAL,5/8/2024,1,543510,James McCann,8,Y,C,74 N LR 5-6 30% outdoor
+188,BAL,5/8/2024,1,656775,Cedric Mullins,9,Y,CF,74 N LR 5-6 30% outdoor
+189,BAL,5/8/2024,1,680694,Kyle Bradish,SP,Y,,74 N LR 5-6 30% outdoor
+190,WAS,5/8/2024,1,696285,Jacob Young,1,Y,CF,74 N LR 5-6 30% outdoor
+191,WAS,5/8/2024,1,682928,CJ Abrams,2,Y,SS,74 N LR 5-6 30% outdoor
+192,WAS,5/8/2024,1,671277,Luis V Garcia,3,Y,2B,74 N LR 5-6 30% outdoor
+193,WAS,5/8/2024,1,669222,Nick Senzel,4,Y,DH,74 N LR 5-6 30% outdoor
+194,WAS,5/8/2024,1,608385,Jesse Winker,5,Y,LF,74 N LR 5-6 30% outdoor
+195,WAS,5/8/2024,1,608841,Joey Meneses,6,Y,1B,74 N LR 5-6 30% outdoor
+196,WAS,5/8/2024,1,660688,Keibert Ruiz,7,Y,C,74 N LR 5-6 30% outdoor
+197,WAS,5/8/2024,1,592696,Eddie Rosario,8,Y,RF,74 N LR 5-6 30% outdoor
+198,WAS,5/8/2024,1,702358,Trey Lipscomb,9,Y,3B,74 N LR 5-6 30% outdoor
+199,WAS,5/8/2024,1,680730,Mitchell Parker,SP,Y,,74 N LR 5-6 30% outdoor
+200,CHW,5/8/2024,1,502054,Thomas Pham,1,Y,CF,dome 
+201,CHW,5/8/2024,1,657757,Gavin Sheets,2,Y,RF,dome 
+202,CHW,5/8/2024,1,683734,Andrew Vaughn,3,Y,1B,dome 
+203,CHW,5/8/2024,1,650391,Eloy Jimenez,4,Y,DH,dome 
+204,CHW,5/8/2024,1,643217,Andrew Benintendi,5,Y,LF,dome 
+205,CHW,5/8/2024,1,682868,Bryan Ramos,6,Y,3B,dome 
+206,CHW,5/8/2024,1,657557,Paul DeJong,7,Y,SS,dome 
+207,CHW,5/8/2024,1,669699,Braden Shewmake,8,Y,2B,dome 
+208,CHW,5/8/2024,1,455117,Martin Maldonado,9,Y,C,dome 
+209,CHW,5/8/2024,1,623167,Chris Flexen,SP,Y,,dome 
+210,TB,5/8/2024,1,650490,Yandy Diaz,1,Y,1B,dome 
+211,TB,5/8/2024,1,668227,Randy Arozarena,2,Y,LF,dome 
+212,TB,5/8/2024,1,623912,Harold Ramirez,3,Y,DH,dome 
+213,TB,5/8/2024,1,670623,Isaac Paredes,4,Y,3B,dome 
+214,TB,5/8/2024,1,642708,Amed Rosario,5,Y,2B,dome 
+215,TB,5/8/2024,1,676356,Jonny Deluca,6,Y,RF,dome 
+216,TB,5/8/2024,1,676609,Jose Caballero,7,Y,SS,dome 
+217,TB,5/8/2024,1,656577,Alex Jackson,8,Y,C,dome 
+218,TB,5/8/2024,1,642350,Jose Siri,9,Y,CF,dome 
+219,TB,5/8/2024,1,650644,Aaron Civale,SP,Y,,dome 
+220,HOU,5/8/2024,1,514888,Jose Altuve,1,Y,2B,72 O RF 9-12 5% outdoor
+221,HOU,5/8/2024,1,663656,Kyle Tucker,2,Y,RF,72 O RF 9-12 5% outdoor
+222,HOU,5/8/2024,1,670541,Yordan Alvarez,3,Y,DH,72 O RF 9-12 5% outdoor
+223,HOU,5/8/2024,1,665161,Jeremy Pena,4,Y,SS,72 O RF 9-12 5% outdoor
+224,HOU,5/8/2024,1,572138,Jon Singleton,5,Y,1B,72 O RF 9-12 5% outdoor
+225,HOU,5/8/2024,1,608324,Alex Bregman,6,Y,3B,72 O RF 9-12 5% outdoor
+226,HOU,5/8/2024,1,673237,Yainer Diaz,7,Y,C,72 O RF 9-12 5% outdoor
+227,HOU,5/8/2024,1,643289,Mauricio Dubon,8,Y,LF,72 O RF 9-12 5% outdoor
+228,HOU,5/8/2024,1,676694,Jake Meyers,9,Y,CF,72 O RF 9-12 5% outdoor
+229,HOU,5/8/2024,1,681293,Spencer Arrighetti,SP,Y,,72 O RF 9-12 5% outdoor
+230,NYY,5/8/2024,1,683011,Anthony Volpe,1,Y,SS,72 O RF 9-12 5% outdoor
+231,NYY,5/8/2024,1,665742,Juan Soto,2,Y,RF,72 O RF 9-12 5% outdoor
+232,NYY,5/8/2024,1,592450,Aaron Judge,3,Y,CF,72 O RF 9-12 5% outdoor
+233,NYY,5/8/2024,1,657077,Alex Verdugo,4,Y,LF,72 O RF 9-12 5% outdoor
+234,NYY,5/8/2024,1,519317,Giancarlo Stanton,5,Y,DH,72 O RF 9-12 5% outdoor
+235,NYY,5/8/2024,1,519203,Anthony Rizzo,6,Y,1B,72 O RF 9-12 5% outdoor
+236,NYY,5/8/2024,1,650402,Gleyber Torres,7,Y,2B,72 O RF 9-12 5% outdoor
+237,NYY,5/8/2024,1,669224,Austin Wells,8,Y,C,72 O RF 9-12 5% outdoor
+238,NYY,5/8/2024,1,665828,Oswaldo Cabrera,9,Y,3B,72 O RF 9-12 5% outdoor
+239,NYY,5/8/2024,1,607074,Carlos Rodon,SP,Y,,72 O RF 9-12 5% outdoor
+240,BOS,5/8/2024,1,680776,Jarren Duran,1,Y,CF,75 I CF 10-10 46% outdoor
+241,BOS,5/8/2024,1,657136,Connor Wong,2,Y,C,75 I CF 10-10 46% outdoor
+242,BOS,5/8/2024,1,641933,Tyler O'Neill,3,Y,LF,75 I CF 10-10 46% outdoor
+243,BOS,5/8/2024,1,646240,Rafael Devers,4,Y,3B,75 I CF 10-10 46% outdoor
+244,BOS,5/8/2024,1,687093,Vaughn Grissom,5,Y,2B,75 I CF 10-10 46% outdoor
+245,BOS,5/8/2024,1,643265,Garrett Cooper,6,Y,DH,75 I CF 10-10 46% outdoor
+246,BOS,5/8/2024,1,663853,Roman Gonzalez,7,Y,1B,75 I CF 10-10 46% outdoor
+247,BOS,5/8/2024,1,677800,Wilyer Abreu,8,Y,RF,75 I CF 10-10 46% outdoor
+248,BOS,5/8/2024,1,678882,Ceddanne Rafaela,9,Y,SS,75 I CF 10-10 46% outdoor
+249,BOS,5/8/2024,1,601713,Nick Pivetta,SP,Y,,75 I CF 10-10 46% outdoor
+250,ATL,5/8/2024,1,660670,Ronald Acuna,1,Y,RF,75 I CF 10-10 46% outdoor
+251,ATL,5/8/2024,1,645277,Ozzie Albies,2,Y,2B,75 I CF 10-10 46% outdoor
+252,ATL,5/8/2024,1,663586,Austin Riley,3,Y,3B,75 I CF 10-10 46% outdoor
+253,ATL,5/8/2024,1,621566,Matt Olson,4,Y,1B,75 I CF 10-10 46% outdoor
+254,ATL,5/8/2024,1,542303,Marcell Ozuna,5,Y,DH,75 I CF 10-10 46% outdoor
+255,ATL,5/8/2024,1,606115,Orlando Arcia,6,Y,SS,75 I CF 10-10 46% outdoor
+256,ATL,5/8/2024,1,671739,Michael Harris,7,Y,CF,75 I CF 10-10 46% outdoor
+257,ATL,5/8/2024,1,518595,Travis d'Arnaud,8,Y,C,75 I CF 10-10 46% outdoor
+258,ATL,5/8/2024,1,672284,Jarred Kelenic,9,Y,LF,75 I CF 10-10 46% outdoor
+259,ATL,5/8/2024,1,519242,Chris Sale,SP,Y,,75 I CF 10-10 46% outdoor
+260,SEA,5/8/2024,1,668942,Josh Rojas,1,Y,3B,62 N LR 10-15 13% outdoor
+261,SEA,5/8/2024,1,677594,Julio Rodriguez,2,Y,CF,62 N LR 10-15 13% outdoor
+262,SEA,5/8/2024,1,593871,Jorge Polanco,3,Y,2B,62 N LR 10-15 13% outdoor
+263,SEA,5/8/2024,1,571745,Mitch Haniger,4,Y,RF,62 N LR 10-15 13% outdoor
+264,SEA,5/8/2024,1,663728,Cal Raleigh,5,Y,C,62 N LR 10-15 13% outdoor
+265,SEA,5/8/2024,1,641598,Mitch Garver,6,Y,DH,62 N LR 10-15 13% outdoor
+266,SEA,5/8/2024,1,664034,Ty France,7,Y,1B,62 N LR 10-15 13% outdoor
+267,SEA,5/8/2024,1,670042,Luke Raley,8,Y,LF,62 N LR 10-15 13% outdoor
+268,SEA,5/8/2024,1,664238,Dylan Moore,9,Y,SS,62 N LR 10-15 13% outdoor
+269,SEA,5/8/2024,1,669923,George Kirby,SP,Y,,62 N LR 10-15 13% outdoor
+270,MIN,5/8/2024,1,666397,Edouard Julien,1,Y,2B,62 N LR 10-15 13% outdoor
+271,MIN,5/8/2024,1,621043,Carlos Correa,2,Y,SS,62 N LR 10-15 13% outdoor
+272,MIN,5/8/2024,1,663616,Trevor Larnach,3,Y,DH,62 N LR 10-15 13% outdoor
+273,MIN,5/8/2024,1,596146,Max Kepler,4,Y,RF,62 N LR 10-15 13% outdoor
+274,MIN,5/8/2024,1,669304,Jose Miranda,5,Y,3B,62 N LR 10-15 13% outdoor
+275,MIN,5/8/2024,1,666135,Alex Kirilloff,6,Y,1B,62 N LR 10-15 13% outdoor
+276,MIN,5/8/2024,1,650489,Willi Castro,7,Y,CF,62 N LR 10-15 13% outdoor
+277,MIN,5/8/2024,1,543877,Christian Vazquez,8,Y,C,62 N LR 10-15 13% outdoor
+278,MIN,5/8/2024,1,622534,Manuel Margot,9,Y,LF,62 N LR 10-15 13% outdoor
+279,MIN,5/8/2024,1,663978,Chris Paddack,SP,Y,,62 N LR 10-15 13% outdoor
+280,SF,5/8/2024,1,808982,Jung Hoo Lee,1,Y,CF,50 I CF 8-10 14% outdoor
+281,SF,5/8/2024,1,642731,Thairo Estrada,2,Y,2B,50 I CF 8-10 14% outdoor
+282,SF,5/8/2024,1,664774,LaMonte Wade Jr,3,Y,1B,50 I CF 8-10 14% outdoor
+283,SF,5/8/2024,1,624424,Michael Conforto,4,Y,LF,50 I CF 8-10 14% outdoor
+284,SF,5/8/2024,1,656305,Matt Chapman,5,Y,3B,50 I CF 8-10 14% outdoor
+285,SF,5/8/2024,1,573262,Mike Yastrzemski,6,Y,RF,50 I CF 8-10 14% outdoor
+286,SF,5/8/2024,1,671218,Heliot Ramos,7,Y,DH,50 I CF 8-10 14% outdoor
+287,SF,5/8/2024,1,666165,Blake Sabol,8,Y,C,50 I CF 8-10 14% outdoor
+288,SF,5/8/2024,1,605113,Nick Ahmed,9,Y,SS,50 I CF 8-10 14% outdoor
+289,SF,5/8/2024,1,663855,Jordan Hicks,SP,Y,,50 I CF 8-10 14% outdoor
+290,COL,5/8/2024,1,453568,Charlie Blackmon,1,Y,DH,50 I CF 8-10 14% outdoor
+291,COL,5/8/2024,1,678662,Ezequiel Tovar,2,Y,SS,50 I CF 8-10 14% outdoor
+292,COL,5/8/2024,1,641857,Ryan McMahon,3,Y,3B,50 I CF 8-10 14% outdoor
+293,COL,5/8/2024,1,553869,Elias Diaz,4,Y,C,50 I CF 8-10 14% outdoor
+294,COL,5/8/2024,1,663898,Brendan Rodgers,5,Y,2B,50 I CF 8-10 14% outdoor
+295,COL,5/8/2024,1,686668,Brenton Doyle,6,Y,CF,50 I CF 8-10 14% outdoor
+296,COL,5/8/2024,1,656248,Sean Bouchard,7,Y,RF,50 I CF 8-10 14% outdoor
+297,COL,5/8/2024,1,696100,Hunter Goodman,8,Y,1B,50 I CF 8-10 14% outdoor
+298,COL,5/8/2024,1,687597,Jordan Beck,9,Y,LF,50 I CF 8-10 14% outdoor
+299,COL,5/8/2024,1,663567,Peter Lambert,SP,Y,,50 I CF 8-10 14% outdoor
