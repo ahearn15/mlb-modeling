@@ -131,8 +131,8 @@ class RetrieveResults:
                             daily_picks['Bet_Away'] = np.where(daily_picks['Official Pick'].str.split(' ').str[0] == daily_picks['Away'], 1, 0)
 
                             daily_picks['Home_Win_Prob'] = np.where(daily_picks['Bet_Home'] == 1,
-                                                                    pd.to_numeric(daily_picks['Pr(Win)'].str.replace('%', ''))/100,
-                                                                    1 - pd.to_numeric(daily_picks['Pr(Win)'].str.replace('%', ''))/100)
+                                                                    pd.to_numeric(daily_picks['Pr(Win)'].astype(str).str.replace('%', ''))/100,
+                                                                    1 - pd.to_numeric(daily_picks['Pr(Win)'].astype(str).str.replace('%', ''))/100)
                             daily_picks['Away_Win_Prob'] = 1 - daily_picks['Home_Win_Prob']
 
                             daily_picks['Home_ML_Dec'] = np.where(daily_picks['Home_ML'] > 0, (daily_picks['Home_ML'] / 100) + 1, (100 / abs(daily_picks['Home_ML'])) + 1)
